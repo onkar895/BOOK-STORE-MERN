@@ -1,1 +1,1 @@
-export const apiUrl = 'http://localhost:8000/api/books'
+export const apiUrl = `${import.meta.env.VITE_BACKEND_URL}/api/books`;

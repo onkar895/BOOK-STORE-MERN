@@ -3,6 +3,7 @@ import BackButton from '../Components/BackButton'
 import Spinner from '../Components/Spinner'
 import { useNavigate, useParams } from 'react-router-dom'
 import { apiUrl } from "../utils/bookAPI"
+import useFetchBooks from '../Hooks/useFetchBooks'
 
 const EditBooks = () => {
   const [title, setTitle] = useState('');
@@ -10,47 +11,32 @@ const EditBooks = () => {
   const [price, setPrice] = useState('')
   const [description, setDescription] = useState('')
   const [publishYear, setPublishYear] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const [saveError, setSaveError] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
 
   const navigate = useNavigate();
   const {id} = useParams();
 
-  useEffect(() => {
-    const fetchBookData = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch(`${apiUrl}/${id}`)
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const result = await response.json()
-        setTitle(result.data.title || '');
-        setAuthor(result.data.author || '');
-        setPrice(result.data.price ? result.data.price.toString() : '');
-        setDescription(result.data.description || '');
-        setPublishYear(result.data.publishYear ? result.data.publishYear.toString() : '');
-        setIsDataLoaded(true);
-      } catch (error) {
-        setLoading(false)
-        console.error("Error fetching data:", error)
-        alert('An error occurred. Please check console')
-      } finally {
-        setLoading(false);
-      }
-    }
+  const { books: book, loading, error } = useFetchBooks(id); // Fetch single book data
 
-    fetchBookData()
-  }, [id])
+  useEffect(() => {
+    if (book) {
+      setTitle(book.title || "");
+      setAuthor(book.author || "");
+      setPrice(book.price ? book.price.toString() : "");
+      setDescription(book.description || "");
+      setPublishYear(book.publishYear ? book.publishYear.toString() : "");
+      setIsDataLoaded(true);
+    }
+  }, [book]);
 
   const setAutoError = (message) => {
-    setError(message);
-    
+    setSaveError(message);
     setTimeout(() => {
-      setError('');
+      setSaveError("");
     }, 3000);
-  }
+  };
 
   const handleEditBook = async () => {
     if (!title || !author || !price || !description || !publishYear) {
@@ -66,8 +52,8 @@ const EditBooks = () => {
         description,
         publishYear: parseInt(publishYear)
       };
-      setLoading(true);
-      setError('');
+      setIsSaving(true);
+      setSaveError("");
 
       const response = await fetch(`${apiUrl}/${id}`, {
         method: 'PATCH',
@@ -81,16 +67,14 @@ const EditBooks = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const result = await response.json()
-      console.log('Book Updated successfully:', result);
       navigate('/')
     } catch (error) {
-      setLoading(false)
+      setIsSaving(false);
       console.error('Error saving book:', error);
       alert('An error occurred. Please check console')
       setAutoError('Failed to save book. Please try again.');
     } finally {
-      setLoading(false);
+      setIsSaving(false);
     }
   }
 
@@ -102,6 +86,8 @@ const EditBooks = () => {
   if (loading && !isDataLoaded) {
     return <Spinner />
   }
+
+  if (error) return <p className="text-red-500 text-center">{error}</p>;
 
   return (
     <div className='min-h-screen flex flex-col items-center justify-center'>
@@ -166,14 +152,14 @@ const EditBooks = () => {
         <button 
           className='p-2 bg-sky-400 hover:bg-sky-500 mt-4 w-full rounded-md' 
           onClick={handleEditBook} 
-          disabled={loading}
+          disabled={isSaving}
         >
-          {loading ? 'Saving...' : 'Save'}
+          {isSaving ? 'Saving...' : 'Save'}
         </button>
 
-        {error && (
+        {saveError && (
           <div className={errorStyles}>
-            {error}
+            {saveError}
           </div>
         )}
       </div>

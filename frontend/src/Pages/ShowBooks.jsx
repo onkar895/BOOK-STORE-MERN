@@ -1,48 +1,16 @@
-import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import BackButton from "../Components/BackButton"
-import { apiUrl } from "../utils/bookAPI"
 import Spinner from "../Components/Spinner"
 import { Book, Star, Clock, DollarSign } from "lucide-react"
+import useFetchBooks from "../Hooks/useFetchBooks"
 
 const ShowBooks = () => {
-  const [book, setBook] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
+
   const { id } = useParams()
-
-  useEffect(() => {
-    const fetchBookData = async () => {
-      try {
-        setIsLoading(true)
-        const response = await fetch(`${apiUrl}/${id}`)
-        const result = await response.json()
-        console.log(result.data)
-        setBook(result.data)
-        setIsLoading(false)
-      } catch (error) {
-        console.error("Error fetching data:", error)
-        setBook(null)
-        setIsLoading(false)
-      }
-    }
-
-    if (id) fetchBookData()
-  }, [id])
- 
-  // No book found state
-  if (!book) {
-    return (
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-        <div className="text-center">
-          <Book className="mx-auto mb-4 w-16 h-16 text-gray-600" />
-          <p className="text-xl text-gray-400">No book found</p>
-        </div>
-      </div>
-    )
-  }
+  const {books: book, loading} = useFetchBooks(id)
 
   return ( 
-    isLoading 
+    loading 
     ? <Spinner/> 
     : <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 p-4">
         <div className="w-full max-w-lg md:max-w-2xl bg-gray-800 rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-500 hover:scale-[1.02] cursor-pointer">

@@ -1,27 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { MdOutlineAddBox } from 'react-icons/md'
-import { apiUrl } from '../utils/bookAPI'
+import useFetchBooks from '../Hooks/useFetchBooks'
 import BooksTable from '../Components/BooksTable'
-import BooksCard from '../Components/BooksCard' // Correct import path
+import BooksCard from '../Components/BooksCard' 
 
 const HomePage = () => {
-  const [data, setData] = useState([])
-  const [showType, setShowType] = useState('table')
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(apiUrl)
-        const result = await response.json()
-        console.log(result.data)
-        setData(result.data)
-      } catch (error) {
-        console.error('Error fetching data:', error)
-      }
-    }
-    fetchData()
-  }, [])
+  const [showType, setShowType] = useState('table')
+  const { books, loading, error } = useFetchBooks();
 
   return (
     <div className='flex flex-col items-center justify-center p-4 min-h-screen my-10 gap-10'>
@@ -52,11 +39,15 @@ const HomePage = () => {
         </button>
       </div>
 
+      {/* Handle Loading and Error States */}
+      {loading && <p className="text-sky-400 text-lg">Loading books...</p>}
+      {error && <p className="text-red-500">{error}</p>}
+
       {
         showType === 'table' ? (
-          <BooksTable books={data} />
+          <BooksTable books={books} />
         ) : (
-          <BooksCard books={data} />
+          <BooksCard books={books} />
         )
       }
     </div>
