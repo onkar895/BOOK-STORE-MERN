@@ -4,9 +4,12 @@ import BackButton from '../Components/BackButton'
 import Spinner from '../Components/Spinner'
 import { useNavigate } from 'react-router-dom'
 import { apiUrl } from "../utils/bookAPI"
+import NavBar from '../Components/NavBar'
 
 const CreateBooks = () => {
   const [title, setTitle] = useState('');
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [author, setAuthor] = useState('');
   const [price, setPrice] = useState('')
   const [description, setDescription] = useState('')
@@ -24,16 +27,44 @@ const CreateBooks = () => {
     }, 3000);
   }
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Check if file is an image
+      if (!file.type.match('image.*')) {
+        setError('Please select an image file');
+        return;
+      }
+      
+      // Check file size (limit to 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setError('Image size should be less than 5MB');
+        return;
+      }
+      
+      setImageFile(file);
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSaveBook = async () => {
 
-    if (!title || !author || !price || !description || !publishYear) {
+    if (!title || !imageFile || !author || !price || !description || !publishYear) {
       setAutoError('Please fill in all fields');
       return; // Stop execution instead of throwing
     }
 
     try {
+      // / Create bookData object to send the file and other data
       const bookData = {
         title,
+        imageFile,
         author,
         price: parseFloat(price),
         description,
@@ -71,7 +102,10 @@ const CreateBooks = () => {
   const errorStyles = 'text-red-500 text-sm mt-2 text-center';
 
   return (
-    <div className='p-8'>
+    <>
+      <div className="mx-auto px-4 sm:px-10 lg:px-28">
+        <NavBar />
+      <div className='my-36 sm:my-28'>
       <div className='flex items-center gap-10 justify-center my-6'>
         <BackButton />
         <h1 className='text-2xl text-sky-400 tracking-widest'>Create Book</h1>
@@ -79,7 +113,7 @@ const CreateBooks = () => {
     
       {loading && <Spinner />}
 
-      <div className='flex flex-col gap-6 border border-sky-500 rounded-xl w-[500px] px-10 py-12 mx-auto'>
+      <div className='flex flex-col gap-6 border border-sky-500 rounded-xl w-full max-w-xl md:max-w-2xl px-10 py-12 mx-auto'>
         <div>
           <input
             type='text'
@@ -89,6 +123,27 @@ const CreateBooks = () => {
             onChange={(e) => setTitle(e.target.value)}
             className={inputStyles}
           />
+          {/* Image Preview */}
+          {
+            imagePreview && (
+              <div className="mt-3">
+                <p className="text-sm text-gray-400 mb-1">Image Preview:</p>
+                <img 
+                  src={imagePreview} 
+                  alt="Book cover preview" 
+                  className="w-32 h-40 object-cover rounded border border-gray-400" 
+                />
+              </div>
+            )
+          }
+        </div>
+        <div>
+          <input
+          type='file'
+          accept='image/*'
+          onChange={handleImageChange} 
+           className="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-sky-400 file:text-white hover:file:bg-sky-500"
+        />
         </div>
         <div>
           <input
@@ -111,6 +166,16 @@ const CreateBooks = () => {
           />
         </div>
         <div>
+          <input
+            type='number'
+            placeholder='Enter publish year'
+            value={publishYear}
+            required
+            onChange={(e) => setPublishYear(e.target.value)}
+            className={inputStyles}
+          />
+        </div>
+        <div>
           <textarea
             type='text'
             placeholder='Enter book description'
@@ -121,17 +186,7 @@ const CreateBooks = () => {
             className={inputStyles}
           />
         </div>
-        <div>
-          <input
-            type='number'
-            placeholder='Enter publish year'
-            value={publishYear}
-            required
-            onChange={(e) => setPublishYear(e.target.value)}
-            className={inputStyles}
-          />
-        </div>
-
+        
         <button className='p-2 bg-sky-400 hover:bg-sky-500 mt-4 w-full rounded-md' onClick={handleSaveBook} disabled={loading}>
           {loading ? 'Saving...' : 'Save'}
         </button>
@@ -143,6 +198,8 @@ const CreateBooks = () => {
         )}
       </div>
     </div>
+    </div>
+    </>
   )
 }
 

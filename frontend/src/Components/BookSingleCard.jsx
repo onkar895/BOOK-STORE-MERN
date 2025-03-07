@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { PiBookOpenTextLight } from 'react-icons/pi';
 import { BiUserCircle, BiShow } from 'react-icons/bi';
@@ -7,15 +8,42 @@ import { MdOutlineDelete } from 'react-icons/md';
 
 const BookSingleCard = ({ book, index }) => {
 
+  const [imageError, setImageError] = useState(false);
+
   // Truncate long descriptions
   const truncateText = (text, maxLength = 80) => {
     if (!text) return '';
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
   };
 
+   // Default image to show when the URL is invalid or image fails to load
+   const defaultBookCover = 'https://via.placeholder.com/150x200?text=No+Image';
+
+   // Function to handle image URL based on whether it's a local path or full URL
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) return defaultBookCover;
+    
+    // If using local storage and the path starts with /uploads/
+    if (imagePath.startsWith('/uploads/')) {
+      // For local development
+      return `http://localhost:5173${imagePath}`;
+      // For production, adjust the URL as needed
+      // return `https://your-production-domain.com${imagePath}`;
+    }
+    
+    // If it's already a full URL (e.g., Cloudinary)
+    return imagePath;
+  };
+
   return (
-    <div className='relative border border-sky-300 shadow-md rounded-md p-6 hover:scale-105 transition-all duration-500 ease-in-out cursor-pointer m-4 md:mx-10'>
-      {/* Book Number Badge */}
+    <div className='relative border border-gray-600 shadow-md rounded-md p-6  cursor-pointer'>
+      <img 
+        src={imageError ? defaultBookCover : getImageUrl(book.image)} 
+        alt={book.title} 
+        className='block m-auto w-[650px] h-[300px] md:h-[200px] object-cover rounded-lg transition-transform hover:scale-105 duration-500 ease-in-out'
+        onError={() => setImageError(true)}
+      />
+        {/* Book Number Badge */}
       <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-sky-600 flex items-center justify-center text-white font-bold shadow-md">
         {index + 1}
       </div>

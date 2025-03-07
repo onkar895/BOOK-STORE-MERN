@@ -7,6 +7,7 @@ import useFetchBooks from '../Hooks/useFetchBooks'
 
 const EditBooks = () => {
   const [title, setTitle] = useState('');
+  const [image, setImage] = useState('')
   const [author, setAuthor] = useState('');
   const [price, setPrice] = useState('')
   const [description, setDescription] = useState('')
@@ -109,6 +110,16 @@ const EditBooks = () => {
         </div>
         <div>
           <input
+          type='text'
+          placeholder='Enter the image URL'
+          value={image}
+          required
+          onChange={(e) => setImage(e.target.value)} 
+          className={inputStyles}
+        />
+        </div>
+        <div>
+          <input
             type='text'
             placeholder='Enter author name'
             value={author}
@@ -128,6 +139,16 @@ const EditBooks = () => {
           />
         </div>
         <div>
+          <input
+            type='number'
+            placeholder='Enter publish year'
+            value={publishYear}
+            required
+            onChange={(e) => setPublishYear(e.target.value)}
+            className={inputStyles}
+          />
+        </div>
+        <div>
           <textarea
             type='text'
             placeholder='Enter book description'
@@ -138,17 +159,7 @@ const EditBooks = () => {
             className={inputStyles}
           />
         </div>
-        <div>
-          <input
-            type='number'
-            placeholder='Enter publish year'
-            value={publishYear}
-            required
-            onChange={(e) => setPublishYear(e.target.value)}
-            className={inputStyles}
-          />
-        </div>
-
+        
         <button 
           className='p-2 bg-sky-400 hover:bg-sky-500 mt-4 w-full rounded-md' 
           onClick={handleEditBook} 

@@ -10,7 +10,7 @@ const BooksTable = ({books}) => {
   const dataStyle = 'border border-slate-700 text-center p-4'
 
   return (
-    <div className="w-full max-w-6xl overflow-x-auto">
+    <div className="w-full overflow-x-auto">
       <table className="w-full border-separate border-spacing-2 border-slate-600 mt-4 text-sm sm:text-base">
          <thead>
             <tr className="text-white bg-gray-800">
