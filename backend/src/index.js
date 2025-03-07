@@ -2,10 +2,15 @@ import express from 'express'
 import connectDb from './database/db.js'
 import bookRoutes from './Routes/books.js'
 import cors from 'cors'
+import path from 'path'
+import { fileURLToPath } from 'url';
 
 const PORT = 8000
 
 const app = express()
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Middleware for handling CORS policy
 // Option 1: Allow all origins with default of cors(*)
@@ -22,6 +27,7 @@ app.use(cors())
 
 app.use(express.json())
 app.use("/api", bookRoutes)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const connection = async () => {
   await connectDb()

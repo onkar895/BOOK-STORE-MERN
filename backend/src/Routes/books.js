@@ -1,5 +1,6 @@
 import express from 'express';
 import Book from '../Models/bookModel.js';
+import upload from '../Middleware/UploadImage.js'
 
 const router = express.Router()
 
@@ -18,17 +19,28 @@ router.get('/books', async (req, res) => {
 })
 
 // Route for save/create a new book
-router.post('/books', async (req, res) => {
+router.post('/books', upload.single('image'), async (req, res) => {
   try {
     console.log("Received Data:", req.body); // Check the data received from the client
     const { title, author, price, description, publishYear } = req.body
 
      // Check if required fields are provided
-     if (!title || !author || !price || !description || !publishYear) {
+     if (!title || !image || !author || !price || !description || !publishYear) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const newBook = await Book.create({ title, author, price, description, publishYear })
+     // Get image path or URL (depends on storage solution)
+     let imagePath;
+    
+     // If using local storage
+     if (req.file) {
+       imagePath = `/uploads/${req.file.filename}`;
+     }
+     
+     // If using Cloudinary
+     // imagePath = req.file.path; // Cloudinary returns the URL in req.file.pat
+
+    const newBook = await Book.create({ title,  image: imagePath, author, price, description, publishYear })
 
     if (!newBook) throw new Error('Error creating a new book')
 
@@ -56,13 +68,13 @@ router.route('/books/:bookId')
   // Route for updating a book
   .patch(async (req, res) => {
     try {
-      const { title, author, price, description, publishYear } = req.body
+      const { title, image, author, price, description, publishYear } = req.body
 
-      if (!title || !author || !price || !description || !publishYear) {
+      if (!title || !image || !author || !price || !description || !publishYear) {
         return res.status(400).json({ message: "All fields are required" });
       }
 
-      const updatedBook = await Book.findByIdAndUpdate(req.params.bookId, { title, author, price, description, publishYear }, { new: true })
+      const updatedBook = await Book.findByIdAndUpdate(req.params.bookId, { title, image, author, price, description, publishYear }, { new: true })
 
       console.log("Updated Data:", updatedBook);
 
