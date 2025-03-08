@@ -1,6 +1,6 @@
 import express from 'express';
 import Book from '../Models/bookModel.js';
-import upload from '../Middleware/UploadImage.js'
+import upload from '../Middleware/UploadImage.js';
 
 const router = express.Router()
 
@@ -21,26 +21,25 @@ router.get('/books', async (req, res) => {
 // Route for save/create a new book
 router.post('/books', upload.single('image'), async (req, res) => {
   try {
+
+    console.log("File uploaded:", req.file)
     console.log("Received Data:", req.body); // Check the data received from the client
-    const { title, author, price, description, publishYear } = req.body
+    const { title, author, price, description, publishYear} = req.body
+
+     // Check if file was uploaded
+    if (!req.file) {
+      return res.status(400).json({ message: "Image file is required" });
+    }
+
+    // Store the file path for retrieval later
+    const imageUrl = `/uploads/${req.file.filename}`;
 
      // Check if required fields are provided
-     if (!title || !image || !author || !price || !description || !publishYear) {
+     if (!title || !imageUrl || !author || !price || !description || !publishYear) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-     // Get image path or URL (depends on storage solution)
-     let imagePath;
-    
-     // If using local storage
-     if (req.file) {
-       imagePath = `/uploads/${req.file.filename}`;
-     }
-     
-     // If using Cloudinary
-     // imagePath = req.file.path; // Cloudinary returns the URL in req.file.pat
-
-    const newBook = await Book.create({ title,  image: imagePath, author, price, description, publishYear })
+    const newBook = await Book.create({ title, imageUrl, author, price:parseFloat(price), description, publishYear:parseInt(publishYear)  })
 
     if (!newBook) throw new Error('Error creating a new book')
 
