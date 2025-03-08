@@ -11,7 +11,7 @@ const Footer = () => {
     <footer>
       {/* Newsletter Section */}
       <div className='border-t border-gray-700'>
-        <div className='w-full mx-auto py-8 px-4'>
+        <div className='w-full mx-auto py-16 px-4'>
           <div className='flex flex-col md:flex-row justify-between items-center'>
             <div className='text-center md:text-start mb-6 md:mb-0'>
               <h3 className='text-lg font-semibold text-gray-800 dark:text-white mb-2'>Stay updated with BookVerse</h3>
@@ -36,7 +36,7 @@ const Footer = () => {
 
       {/* Main Footer */}
       <div className='border-t border-gray-700'>
-        <div className='w-full mx-auto py-8 px-4'>
+        <div className='w-full mx-auto py-16 px-4'>
           <div className="flex flex-col md:flex-row items-start md:items-center gap-16 justify-between">
             <div className='flex flex-col justify-center gap-4 w-[50%]'>
               <Link to='/' className='flex items-center gap-2 group'>
@@ -147,9 +147,9 @@ const Footer = () => {
 
       {/* Copyright */}
       <div className='border-t border-gray-200 dark:border-gray-700'>
-        <div className='max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8'>
+        <div className='max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8'>
           <p className='text-center text-gray-500 dark:text-gray-400 text-sm'>&copy; {currentYear} BookVerse. All rights reserved.</p>
-          <p className='text-sky-400 text-center text-sm mt-2'>Designed & Developed By Onkar Karale</p>
+          <p className='text-sky-400 text-center text-sm mt-4'>Designed & Developed By Onkar Karale 🚀</p>
         </div>
       </div>
     </footer>
