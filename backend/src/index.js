@@ -5,7 +5,7 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 // Get the directory path using ES modules approach
 const __filename = fileURLToPath(import.meta.url);
@@ -28,7 +28,6 @@ app.use(cors());
 
 // Parse JSON requests
 app.use(express.json());
-
 // For parsing application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
