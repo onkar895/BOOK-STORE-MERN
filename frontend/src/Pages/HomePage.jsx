@@ -26,7 +26,7 @@ const HomePage = () => {
       
       // Set the featured book (first book or a specific one you want to feature)
       if (books.length > 0 && !featuredBook) {
-        setFeaturedBook(books[0]);
+        setFeaturedBook(books[4]);
       }
     }
   }, [books, searchQuery, featuredBook]);

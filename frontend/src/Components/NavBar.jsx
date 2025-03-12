@@ -2,21 +2,32 @@ import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { MdMenu, MdClose, MdSearch } from 'react-icons/md';
 import { FaBook, FaGithub } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; 
+import useFetchBooks from '../Hooks/useFetchBooks';
 
 const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const {books} = useFetchBooks()
+
+  const navigate = useNavigate();
+
+  const foundBook = books.find(book => book.title.toLowerCase().includes(searchQuery.toLowerCase()));
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // You can implement global search state here or pass up to parent component
+    if (foundBook) {
+      navigate(`/books/details/${foundBook._id}`);
+    } else {
+      console.log("Book not found");
+    }
     console.log('Searching for:', searchQuery);
     // Reset mobile menu after search on mobile
     setMobileMenuOpen(false);
   };
 
   return (
-    <nav className="fixed top-0 left-0 z-50 transition-colors duration-300 w-full">
+    <nav className="fixed top-0 left-0 z-50 bg-slate-900 transition-colors duration-300 w-full">
       <div className="mx-auto px-4 sm:px-10 lg:px-28">
         <div className="flex items-center justify-between h-20">
           {/* Logo and Brand */}
@@ -47,7 +58,7 @@ const NavBar = () => {
               Home
             </NavLink>
             <NavLink 
-              to="/books" 
+              to="/books" end 
               className={({ isActive }) => 
                 `text-gray-300 hover:text-sky-500 transition-all ease-in-out duration-500 ${
                   isActive ? 'border-b-2 border-sky-500 text-sky-500 font-medium' : ''
@@ -59,7 +70,7 @@ const NavBar = () => {
             <NavLink 
               to="/books/create" 
               className={({ isActive }) => 
-                `text-gray-300 hover:text-sky-500 transition-colors duration-300 ${
+                `text-gray-300 hover:text-sky-500 transition-colors duration-500 ${
                   isActive ? 'border-b-2 border-sky-500 text-sky-500 font-medium' : ''
                 }`
               }
@@ -86,7 +97,7 @@ const NavBar = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="px-4 text-sm py-1.5 w-72 rounded-full bg-transparent text-gray-200 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-colors duration-300"
               />
-              <button type="submit" className="absolute right-3 top-2 text-gray-400">
+              <button type="submit" className="absolute right-3 top-2 text-gray-400 hover:text-gray-300">
                 <MdSearch size={22} />
               </button>
             </form>
@@ -115,9 +126,9 @@ const NavBar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`md:hidden fixed top-20 left-0 w-full bg-gray-800 shadow-lg transition-all duration-500 ease-in-out 
+      <div className={`md:hidden fixed top-20 left-0 w-full bg-slate-900 shadow-lg transition-all duration-500 ease-in-out 
   ${mobileMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"}`}>
-        <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3 bg-gray-800 shadow-lg">
+        <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3 bg-slate-900 shadow-lg">
           <NavLink 
             to="/" 
             className={({ isActive }) => 

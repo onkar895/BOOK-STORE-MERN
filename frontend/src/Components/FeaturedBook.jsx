@@ -49,7 +49,7 @@ const FeaturedBook = ({ book }) => {
   
   // Default values for potentially missing properties
   const defaultDescription = "A captivating story that will take you on an unforgettable journey through imagination and adventure.";
-  const defaultCoverImage = "https://via.placeholder.com/300x450?text=Book+Cover";
+  const defaultCoverImage = "https://nnp.wustl.edu/library/periodical/15587/300x450?text=Book+Cover";
   
   return (
     <div 
@@ -71,7 +71,7 @@ const FeaturedBook = ({ book }) => {
               <div className="absolute rounded-lg blur opacity-30 group-hover:opacity-50 transition duration-300"></div>
               <div className="relative">
                 <img 
-                  src={book.image || defaultCoverImage} 
+                src={book.imageUrl ? `https://book-store-mern-31yo.onrender.com${book.imageUrl}` : defaultCoverImage} 
                   alt={book.title} 
                   className="w-[650px] h-[300px] object-cover rounded shadow-lg transform transition-transform duration-500 group-hover:scale-105 cursor-pointer"
                 />

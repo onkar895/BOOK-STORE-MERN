@@ -10,6 +10,8 @@ const ShowBook = () => {
   const { id } = useParams()
   const { books: book, loading } = useFetchBooks(id)
 
+  const defaultCoverImage = "https://nnp.wustl.edu/library/periodical/15587/300x450?text=Book+Cover";
+
   return (
     <>
       <div className="mx-auto px-4 sm:px-10 lg:px-28">
@@ -26,7 +28,7 @@ const ShowBook = () => {
 
             {/* Book Details Container */}
             <div className="grid md:grid-cols-3 gap-6 p-10">
-              <img src={book.image} alt={book.title} className="block m-auto w-[420px] h-[300px] md:w-[300px] md:h-[340px]" />
+              <img src={book.imageUrl ? `https://book-store-mern-31yo.onrender.com${book.imageUrl}` : defaultCoverImage} alt={book.title} className="block m-auto w-[650px] h-[300px] md:h-[360px] object-cover rounded-lg transition-transform hover:scale-105 duration-500 ease-in-out"/>
 
               {/* Book Information */}
               <div className="md:col-span-2 space-y-4">

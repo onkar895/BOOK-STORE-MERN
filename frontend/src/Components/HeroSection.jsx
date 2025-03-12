@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MdOutlineAddBox, MdMenuBook } from 'react-icons/md';
 import BookVerse from '../assets/bookverse-logo.png'
+import { useNavigate } from 'react-router-dom';
 
-const HeroSection = ({ scrollToBooks }) => {
+const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     // Add animation effect when component mounts
@@ -18,29 +21,29 @@ const HeroSection = ({ scrollToBooks }) => {
   const styles = "p-6 rounded-lg shadow-md border border-gray-600 hover:border-gray-500 transition-all duration-300 hover:shadow-lg cursor-pointer"
 
   return (
-    <div className="w-full my-32">
+    <div className="w-full py-32">
       <div className="flex flex-col md:flex-row items-center">
         <div
           className={`flex flex-col items-center md:items-start gap-4 mb-10 md:mb-0 transform transition-all duration-1000 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'
             }`}
         >
           <h1 className="text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-tight text-center">
-            Your <span className="text-sky-600 dark:text-sky-400">Digital</span> Bookshelf
+            Your <span className="text-sky-400">Digital</span> Bookshelf
           </h1>
-          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 text-center md:text-start">
+          <p className="text-lg md:text-xl text-gray-300 mb-8 text-center md:text-start">
             Manage your book collection, discover new titles, and keep track of your reading journey all in one place.
           </p>
           <div className="flex flex-wrap gap-4">
             <Link
               to="/books/create"
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-all duration-300"
+              className="inline-flex items-center px-3 md:px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-all duration-300"
             >
               <MdOutlineAddBox className="mr-2 text-xl" />
               Add New Book
             </Link>
             <button
-              onClick={scrollToBooks}
-              className="inline-flex items-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-all duration-300"
+              onClick={() => navigate('/books')}
+              className="inline-flex items-center px-3 md:px-6 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-all duration-300"
             >
               <MdMenuBook className="mr-2 text-xl" />
               Browse Collection

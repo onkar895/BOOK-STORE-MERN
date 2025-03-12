@@ -16,65 +16,53 @@ const BookSingleCard = ({ book, index }) => {
   };
 
   // Default image to show when the URL is invalid or image fails to load
-  const defaultBookCover = "https://via.placeholder.com/150x200?text=No+Image";
-
-  // Function to handle image URL based on whether it's a local path or full URL
-  const getImageUrl = (imagePath) => {
-    if (!imagePath) return defaultBookCover;
-
-    // If using local storage and the path starts with /uploads/
-    if (imagePath.startsWith("/uploads")) {
-      // For local development
-      return `http://localhost:8000${imagePath}`;
-      // For production, adjust the URL as needed
-      // return `https://your-production-domain.com${imagePath}`;
-    }
-
-    // If it's already a full URL (e.g., Cloudinary)
-    return imagePath;
-  };
+  const defaultBookCover = "https://nnp.wustl.edu/library/periodical/15587/150x200?text=No+Image";
 
   return (
     <div className='relative border border-gray-600 shadow-md rounded-md p-6  cursor-pointer my-6'>
-      <img
-        src={imageError ? defaultBookCover : getImageUrl(book.imageUrl)}
-        alt={book.title}
-        className='block m-auto w-[650px] h-[300px] md:h-[200px] object-cover rounded-lg transition-transform hover:scale-105 duration-500 ease-in-out'
-        onError={() => setImageError(true)}
-      />
-      {/* Book Number Badge */}
-      <div className='absolute -top-3 -left-3 w-8 h-8 rounded-full bg-sky-600 flex items-center justify-center text-white font-bold shadow-md'>{index + 1}</div>
+      <NavLink to={`/books/details/${book._id}`}>
+        <img
+          src={imageError ? defaultBookCover : `https://book-store-mern-31yo.onrender.com${book.imageUrl}`}
+          className='block m-auto w-[650px] h-[300px] md:h-[200px] object-cover rounded-lg transition-transform hover:scale-105 duration-500 ease-in-out'
+          onError={() => {
+            console.error("Image failed to load:", `https://book-store-mern-31yo.onrender.com${book.imageUrl}`);
+            setImageError(true);
+          }}
+        />
+        {/* Book Number Badge */}
+        <div className='absolute -top-3 -left-3 w-8 h-8 rounded-full bg-sky-600 flex items-center justify-center text-white font-bold shadow-md'>{index + 1}</div>
 
-      {/* Publish Year Badge */}
-      <div className='absolute top-3 right-3 px-4 py-1 bg-gradient-to-r from-sky-500 to-blue-600 text-white rounded-full shadow-md font-medium'>{book.publishYear}</div>
+        {/* Publish Year Badge */}
+        <div className='absolute top-3 right-3 px-4 py-1 bg-gradient-to-r from-sky-500 to-blue-600 text-white rounded-full shadow-md font-medium'>{book.publishYear}</div>
 
-      {/* Content Container with extra spacing for badges */}
-      <div className='mt-10'>
-        {/* Title with hover effect */}
-        <div className={`flex items-center gap-x-5 border-b pb-2`}>
-          <PiBookOpenTextLight className={`text-3xl text-sky-400 transition-colors duration-300`} />
-          <h2 className='text-lg text-white'>{book.title}</h2>
+        {/* Content Container with extra spacing for badges */}
+        <div className='mt-10'>
+          {/* Title with hover effect */}
+          <div className={`flex items-center gap-x-5 border-b pb-2`}>
+            <PiBookOpenTextLight className={`text-3xl text-sky-400 transition-colors duration-300`} />
+            <h2 className='text-lg text-white'>{book.title}</h2>
+          </div>
+
+          <div className='flex flex-col justify-center gap-3 my-4'>
+            {/* Author Info */}
+            <div className='flex items-center gap-x-2'>
+              <BiUserCircle className={`text-2xl text-sky-400 transition-colors duration-300`} />
+              <h3 className='text-sm text-white/60'>{book.author}</h3>
+            </div>
+
+            {/* Price Info with proper icon */}
+            <div className='flex items-center gap-x-2 mt-1'>
+              <BsCurrencyDollar className={`text-2xl text-sky-400 transition-colors duration-300`} />
+              <h3 className='text-sm text-white/60'>{book.price}</h3>
+            </div>
+            {/* Description with truncation */}
+            <div className='flex items-center gap-x-3'>
+              <BsCardText className={`text-3xl text-sky-400 transition-colors duration-300 ml-1`} />
+              <p className='text-white/60 text-sm'>{truncateText(book.description)}</p>
+            </div>
+          </div>
         </div>
-
-        <div className='flex flex-col justify-center gap-3 my-4'>
-          {/* Author Info */}
-          <div className='flex items-center gap-x-2'>
-            <BiUserCircle className={`text-2xl text-sky-400 transition-colors duration-300`} />
-            <h3 className='text-sm text-white/60'>{book.author}</h3>
-          </div>
-
-          {/* Price Info with proper icon */}
-          <div className='flex items-center gap-x-2 mt-1'>
-            <BsCurrencyDollar className={`text-2xl text-sky-400 transition-colors duration-300`} />
-            <h3 className='text-sm text-white/60'>{book.price}</h3>
-          </div>
-          {/* Description with truncation */}
-          <div className='flex items-center gap-x-3'>
-            <BsCardText className={`text-3xl text-sky-400 transition-colors duration-300 ml-1`} />
-            <p className='text-white/60 text-sm'>{truncateText(book.description)}</p>
-          </div>
-        </div>
-      </div>
+      </NavLink>
       {/* Action Buttons */}
       <div className={`flex justify-between items-center border-t border-sky-100 transition-colors duration-300`}>
         <NavLink to={`/books/details/${book._id}`} className='group flex flex-col items-center gap-1'>

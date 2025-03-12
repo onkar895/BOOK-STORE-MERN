@@ -1,12 +1,13 @@
 import React from 'react';
 import { BookOpen, Library, Search, BookMarked, BookText, Star } from 'lucide-react';
 import NavBar from '../Components/NavBar';
+import Footer from '../Components/Footer';
 
 const AboutPage = () => {
   return (
     <>
       <NavBar />
-      <div className="my-24 p-4 sm:p-6 md:p-8 lg:p-12 rounded-2xl shadow-xl max-w-6xl mx-auto">
+      <div className="py-36 px-10 rounded-2xl shadow-xl max-w-6xl mx-auto">
         {/* Header Section with Decorative Elements */}
         <div className="relative text-center mb-8 md:mb-12">
           <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-full">
@@ -90,6 +91,7 @@ const AboutPage = () => {
           </button>
           <p className="mt-4 text-gray-400 text-sm">Join thousands of readers organizing their literary lives</p>
         </div>
+        <Footer/>
       </div>
     </>
   );

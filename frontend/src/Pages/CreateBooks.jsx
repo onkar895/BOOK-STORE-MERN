@@ -60,28 +60,28 @@ const CreateBooks = () => {
     }
 
     try {
-      // / Create bookData object to send the file and other data
-      const bookData = {
-        title,
-        imageFile,
-        author,
-        price: parseFloat(price),
-        description,
-        publishYear: parseInt(publishYear)
-      };
+      // Create FormData object to send the file and other data
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("image", imageFile);
+      formData.append("author", author);
+      formData.append("price", parseFloat(price));
+      formData.append("description", description);
+      formData.append("publishYear", parseInt(publishYear));
       
       setLoading(true);
       setError('');
 
       const response = await fetch(apiUrl, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'  // Set the content type
-        }, 
-        body: JSON.stringify(bookData) // Convert data to JSON string
+        body: formData,
+        // Don't set Content-Type header when sending FormData
+        // The browser will set it automatically with the correct boundary
       });
       
       if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        console.error('Server error details:', errorData);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
@@ -96,14 +96,14 @@ const CreateBooks = () => {
     }
   }
 
-  const inputStyles = 'border-2 border-gray-500 px-4 py-2 w-full text-white rounded-md text-sm';
+  const inputStyles = 'border-2 border-gray-500 px-4 py-2 w-full text-white rounded-md text-sm bg-slate-600';
   const errorStyles = 'text-red-500 text-sm mt-2 text-center';
 
   return (
     <>
       <div className="mx-auto px-4 sm:px-10 lg:px-28">
         <NavBar />
-        <div className='my-36 sm:my-28'>
+        <div className='py-36 sm:py-28'>
           <div className='flex items-center gap-10 justify-center my-6'>
             <BackButton />
             <h1 className='text-2xl text-sky-400 tracking-widest'>Create Book</h1>
