@@ -4,6 +4,7 @@ import Spinner from "../Components/Spinner"
 import { Star, Clock, DollarSign } from "lucide-react"
 import useFetchBooks from "../Hooks/useFetchBooks"
 import NavBar from "../Components/NavBar"
+import { createBookApi } from "../utils/bookAPI"
 
 const ShowBook = () => {
 
@@ -28,7 +29,7 @@ const ShowBook = () => {
 
             {/* Book Details Container */}
             <div className="grid md:grid-cols-3 gap-6 p-10">
-              <img src={book.imageUrl ? `https://book-store-mern-31yo.onrender.com${book.imageUrl}` : defaultCoverImage} alt={book.title} className="block m-auto w-[650px] h-[300px] md:h-[360px] object-cover rounded-lg transition-transform hover:scale-105 duration-500 ease-in-out"/>
+              <img src={book.imageUrl ? `${createBookApi}/${book.imageUrl}` : defaultCoverImage} alt={book.title} className="block m-auto w-[650px] h-[300px] md:h-[360px] object-cover rounded-lg transition-transform hover:scale-105 duration-500 ease-in-out"/>
 
               {/* Book Information */}
               <div className="md:col-span-2 space-y-4">

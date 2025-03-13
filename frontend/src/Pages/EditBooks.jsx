@@ -5,6 +5,7 @@ import Spinner from '../Components/Spinner'
 import { useNavigate, useParams } from 'react-router-dom'
 import { apiUrl } from "../utils/bookAPI"
 import useFetchBooks from '../Hooks/useFetchBooks'
+import { createBookApi } from '../utils/bookAPI'
 
 const EditBooks = () => {
   const [title, setTitle] = useState('');
@@ -31,7 +32,10 @@ const EditBooks = () => {
       setPrice(book.price ? book.price.toString() : "");
       setDescription(book.description || "");
       setPublishYear(book.publishYear ? book.publishYear.toString() : "");
-      setImagePreview(book.imageUrl || '');
+      // If book has image, set the preview URL correctly
+      if (book.imageUrl) {
+        setImagePreview(`${createBookApi}/${book.imageUrl}`);
+      }
       setIsDataLoaded(true);
     }
   }, [book]);

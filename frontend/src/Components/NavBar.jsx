@@ -183,14 +183,14 @@ const NavBar = () => {
           </NavLink>
           
           {/* Mobile Search */}
-          <form onSubmit={handleSearch} className="px-3 py-2">
+          <form onSubmit={handleSearch} className="py-2">
             <div className="relative">
               <input
                 type="text"
                 placeholder="Search books..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-4 py-2 rounded-md border border-gray-500 text-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-colors duration-300"
+                className="w-full py-2 px-3 rounded-md border border-gray-500 text-gray-100 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-colors duration-300 bg-transparent"
               />
               <button type="submit" className="absolute right-3 top-3 text-gray-400">
                 <MdSearch size={22} />
