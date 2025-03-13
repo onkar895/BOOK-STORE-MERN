@@ -5,7 +5,7 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5555;
 
 // Get the directory path using ES modules approach
 const __filename = fileURLToPath(import.meta.url);
@@ -35,7 +35,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", bookRoutes);
 
 // Serve static files from uploads directory
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, './uploads')));
 
 // Error handling middleware
 app.use((err, req, res, next) => {

@@ -1,41 +1,39 @@
-import express from 'express';
-import Book from '../Models/bookModel.js';
-import upload from '../Middleware/UploadImage.js';
+import express from "express";
+import Book from "../Models/bookModel.js";
+import upload from "../Middleware/UploadImage.js";
 
-const router = express.Router()
+const router = express.Router();
 
 // Route for getting all books
-router.get('/books', async (req, res) => {
+router.get("/books", async (req, res) => {
   try {
-    const books = await Book.find({})
+    const books = await Book.find({});
 
-    if(!books || books.length === 0) throw new Error('No books found')
+    if (!books || books.length === 0) throw new Error("No books found");
 
-    res.status(200).json({count: books.length, data: books})
+    res.status(200).json({ count: books.length, data: books });
   } catch (error) {
-    console.log(error.message)
-    res.status(500).json({ message: error.message })
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
   }
-})
+});
 
 // Route for save/create a new book
-router.post('/books', upload.single('image'), async (req, res) => {
+router.post("/books/create", upload.single("image"), async (req, res) => {
   try {
-    console.log("File uploaded:", req.file)
-    console.log("Received Data:", req.body); // Check the data received from the client
-    const { title, author, price, description, publishYear} = req.body
-
-     // Check if file was uploaded
-    if (!req.file) {
-      return res.status(400).json({ message: "Image file is required" });
-    }
+    const { title, author, price, description, publishYear } = req.body;
 
     // Store the file path for retrieval later
     const imageUrl = `uploads/${req.file.filename}`;
 
     // Check if required fields are provided
-    if (!title || !imageUrl || !author || !price || !description || !publishYear) {
-     return res.status(400).json({ message: "All fields are required" });
+    if (!title || !author || !price || !description || !publishYear) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    // Check if file was uploaded
+    if (!req.file) {
+      return res.status(400).json({ message: "Image file is required" });
     }
 
     const bookData = {
@@ -44,79 +42,74 @@ router.post('/books', upload.single('image'), async (req, res) => {
       price,
       description,
       publishYear,
-      imageUrl, 
+      imageUrl,
     };
 
     const newBook = new Book(bookData);
     const savedBook = await newBook.save();
 
     if (!savedBook) {
-      return res.status(500).json({ message: 'Error creating a new book' });
+      return res.status(500).json({ message: "Error creating a new book" });
     }
 
     // Send only ONE response
     return res.status(201).json({
-      status: 'success',
-      message: 'Book created successfully',
-      data: savedBook
+      status: "success",
+      message: "Book created successfully",
+      data: savedBook,
     });
   } catch (error) {
-    console.log(error.message)
-    if (!res.headersSent) { // Prevent sending multiple responses
+    console.log(error.message);
+    if (!res.headersSent) {
+      // Prevent sending multiple responses
       return res.status(500).json({ message: error.message });
     }
   }
-})
+});
 
-router.route('/books/:bookId')
+router
+  .route("/books/:bookId")
   // Route for showing a single book
   .get(async (req, res) => {
     try {
-      const book = await Book.findById(req.params.bookId)
-  
-      if(!book) throw new Error('No book found')
-  
-      res.status(200).json({ data: book })
+      const book = await Book.findById(req.params.bookId);
+
+      if (!book) throw new Error("No book found");
+
+      res.status(200).json({ data: book });
     } catch (error) {
-      console.log(error.message)
-      res.status(500).json({ message: error.message })
+      console.log(error.message);
+      res.status(500).json({ message: error.message });
     }
   })
   // Route for updating a book
   .patch(upload.single("image"), async (req, res) => {
     try {
-      console.log("Received Data:", req.body);
-      console.log("File uploaded:", req.file);
-  
       const { title, author, price, description, publishYear } = req.body;
-  
+
       // Find existing book
       const book = await Book.findById(req.params.bookId);
       if (!book) {
         return res.status(404).json({ message: "Book not found" });
       }
-  
-      // Check if an image file is uploaded
-      let imageUrl = book.imageUrl; // Keep existing image if not updated
-      if (req.file) {
-        imageUrl = `/uploads/${req.file.filename}`;
-      }
-  
-      // THIS IS THE IMPORTANT CHANGE - Removing imageUrl from validation
+
+      // Removing imageUrl from validation
       if (!title || !author || !price || !description || !publishYear) {
         return res.status(400).json({ message: "All text fields are required" });
       }
-  
-      const updatedBook = await Book.findByIdAndUpdate(
-        req.params.bookId, 
-        { title, imageUrl, author, price, description, publishYear }, 
-        { new: true }
-      );
-  
+
+      // Check if an image file is uploaded
+      let imageUrl = book.imageUrl; // Keep existing image if not updated
+      if (req.file) {
+        imageUrl = `uploads/${req.file.filename}`;
+      }
+
+      const updatedBook = await Book.findByIdAndUpdate(req.params.bookId, { title, imageUrl, author, price, description, publishYear }, { new: true });
+
       console.log("Updated Data:", updatedBook);
-  
+
       if (!updatedBook) throw new Error("Error updating book");
-  
+
       res.status(200).json({ status: "success", message: "Book updated successfully", updatedData: updatedBook });
     } catch (error) {
       console.log(error.message);
@@ -126,17 +119,17 @@ router.route('/books/:bookId')
   // Route for deleting a book
   .delete(async (req, res) => {
     try {
-      const deletedBook = await Book.findByIdAndDelete(req.params.bookId)
+      const deletedBook = await Book.findByIdAndDelete(req.params.bookId);
 
-      if (!deletedBook) throw new Error('No book found')
+      if (!deletedBook) throw new Error("No book found");
 
       console.log("Deleted Data:", deletedBook);
 
-      res.status(200).json({status: 'success', message: 'Book deleted successfully',  deletedData: deletedBook})
+      res.status(200).json({ status: "success", message: "Book deleted successfully", deletedData: deletedBook });
     } catch (error) {
-      console.log(error.message)
-      res.status(500).json({ message: error.message })
+      console.log(error.message);
+      res.status(500).json({ message: error.message });
     }
-  })
+  });
 
-export default router
+export default router;
