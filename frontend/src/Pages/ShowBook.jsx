@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { useParams } from "react-router-dom"
 import BackButton from "../Components/BackButton"
 import Spinner from "../Components/Spinner"
@@ -5,13 +6,31 @@ import { Star, Clock, DollarSign } from "lucide-react"
 import useFetchBooks from "../Hooks/useFetchBooks"
 import NavBar from "../Components/NavBar"
 import { createBookApi } from "../utils/bookAPI"
+import ComingSoon from '../assets/Coming-Soon.png'
 
 const ShowBook = () => {
+  const [imageError, setImageError] = useState(false);
 
   const { id } = useParams()
   const { books: book, loading } = useFetchBooks(id)
 
-  const defaultCoverImage = "https://nnp.wustl.edu/img/bookCovers/genericBookCover.jpg";
+  //Default image to show when the URL is invalid or image fails to load
+
+  const defaultBookCover = ComingSoon
+
+  const getImageUrl = () => {
+    if (imageError) {
+      return defaultBookCover;
+    }
+    
+    // Check if the imageUrl already starts with http/https
+    if (book.imageUrl && (book.imageUrl.startsWith('http://') || book.imageUrl.startsWith('https://'))) {
+      return book.imageUrl;
+    }
+    
+    // Otherwise construct the URL with the backend
+    return `${createBookApi}/${book.imageUrl}`;
+  };
 
   return (
     <>
@@ -29,7 +48,14 @@ const ShowBook = () => {
 
             {/* Book Details Container */}
             <div className="grid md:grid-cols-3 gap-6 p-10">
-              <img src={book.imageUrl ? `${createBookApi}/${book.imageUrl}` : defaultCoverImage} alt={book.title} className="block m-auto w-[650px] h-[300px] md:h-[360px] object-cover rounded-lg transition-transform hover:scale-105 duration-500 ease-in-out"/>
+              <img 
+                src={getImageUrl()} alt={book.title} 
+                className="block m-auto w-[650px] h-[300px] md:h-[200px] object-cover rounded-lg transition-transform hover:scale-105 duration-500 ease-in-out"
+                onError={() => {
+                  console.error("Image failed to load:", getImageUrl());
+                  setImageError(true);
+                }} 
+              />
 
               {/* Book Information */}
               <div className="md:col-span-2 space-y-4">
