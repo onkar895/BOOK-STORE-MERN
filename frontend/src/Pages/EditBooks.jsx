@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import BackButton from "../Components/BackButton";
-import Spinner from "../Components/Spinner";
 import { useNavigate, useParams } from "react-router-dom";
 import { apiUrl } from "../utils/bookAPI";
 import useFetchBooks from "../Hooks/useFetchBooks";
@@ -29,9 +28,7 @@ const EditBooks = () => {
 
   const { id } = useParams();
 
-  const { books: book, loading, error } = useFetchBooks(id); // Fetch single book data
-
-  const defaultBookCover = ComingSoon;
+  const { books: book, error } = useFetchBooks(id); 
 
   useEffect(() => {
     if (book) {
@@ -40,12 +37,11 @@ const EditBooks = () => {
       setPrice(book.price ? book.price.toString() : "");
       setDescription(book.description || "");
       setPublishYear(book.publishYear ? book.publishYear.toString() : "");
-      // If book has image, set the preview URL correctly
-      book.image ? setImagePreview(`${createBookApi}${book.image}`) : setImagePreview(defaultBookCover);
+      setImagePreview(book.image ? `${createBookApi}${book.image}` : ComingSoon);
 
       setIsDataLoaded(true);
     }
-  }, [book, defaultBookCover]);
+  }, [book]);
 
   const setAutoError = (message) => {
     setSaveError(message);

@@ -18,20 +18,6 @@ const ShowBook = () => {
 
   const defaultBookCover = ComingSoon
 
-  const getImageUrl = () => {
-    if (imageError) {
-      return defaultBookCover;
-    }
-    
-    // Check if the imageUrl already starts with http/https
-    if (book.imageUrl && (book.imageUrl.startsWith('http://') || book.imageUrl.startsWith('https://'))) {
-      return book.imageUrl;
-    }
-    
-    // Otherwise construct the URL with the backend
-    return `${createBookApi}/${book.imageUrl}`;
-  };
-
   return (
     <>
       <div className="mx-auto px-4 sm:px-10 lg:px-28">
@@ -49,10 +35,10 @@ const ShowBook = () => {
             {/* Book Details Container */}
             <div className="grid md:grid-cols-3 gap-6 p-10">
               <img 
-                src={getImageUrl()} alt={book.title} 
+                src={imageError ? defaultBookCover : `${createBookApi}${book.image}`} 
                 className="block m-auto w-[650px] h-[300px] md:h-[200px] object-cover rounded-lg transition-transform hover:scale-105 duration-500 ease-in-out"
                 onError={() => {
-                  console.error("Image failed to load:", getImageUrl());
+                  console.error("Image failed to load:", `${createBookApi}${book.image}`);
                   setImageError(true);
                 }} 
               />
