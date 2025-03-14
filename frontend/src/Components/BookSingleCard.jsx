@@ -20,28 +20,14 @@ const BookSingleCard = ({ book, index }) => {
   // Default image to show when the URL is invalid or image fails to load
   const defaultBookCover = ComingSoon
 
-  const getImageUrl = () => {
-    if (imageError) {
-      return defaultBookCover;
-    }
-    
-    // Check if the imageUrl already starts with http/https
-    if (book.imageUrl && (book.imageUrl.startsWith('http://') || book.imageUrl.startsWith('https://'))) {
-      return book.imageUrl;
-    }
-    
-    // Otherwise construct the URL with the backend
-    return `${createBookApi}/${book.imageUrl}`;
-  };
-
   return (
     <div className='relative border border-gray-600 shadow-md rounded-md p-6  cursor-pointer my-6'>
       <NavLink to={`/books/details/${book._id}`}>
         <img
-          src={getImageUrl()}
+          src={imageError ? defaultBookCover : `${createBookApi}${book.image}`}
           className='block m-auto w-[650px] h-[300px] md:h-[200px] object-cover rounded-lg transition-transform hover:scale-105 duration-500 ease-in-out'
           onError={() => {
-            console.error("Image failed to load:", getImageUrl());
+            console.error("Image failed to load:", `${createBookApi}${book.image}`);
             setImageError(true);
           }}
         />

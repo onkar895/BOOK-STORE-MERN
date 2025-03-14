@@ -54,6 +54,7 @@ const CreateBooks = () => {
   };
 
   const handleSaveBook = async () => {
+
     if (!title || !imageFile || !author || !price || !description || !publishYear) {
       setAutoError('Please fill in all fields');
       return;
@@ -78,6 +79,7 @@ const CreateBooks = () => {
         // Don't set Content-Type header when sending FormData
         // The browser will set it automatically with the correct boundary
       });
+
       
       if (!response.ok) {
         const errorData = await response.json().catch(() => null);

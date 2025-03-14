@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { apiUrl } from "../utils/bookAPI";
 
 const useFetchBooks = (id = null) => {
-  const [books, setBooks] = useState(id ? null :[]);
+  const [books, setBooks] = useState(id ? null : []);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 

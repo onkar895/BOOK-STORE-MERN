@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaStar, FaRegStar, FaStarHalfAlt, FaEye } from 'react-icons/fa';
-import { createBookApi } from "../utils/bookAPI";
+// import { createBookApi } from "../utils/bookAPI";
 
 const FeaturedBook = ({ book }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -53,19 +53,19 @@ const FeaturedBook = ({ book }) => {
   const defaultDescription = "A captivating story that will take you on an unforgettable journey through imagination and adventure.";
   const defaultCoverImage = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWt1cjZ3M200OG9tb3ZjcnU4NXpsM3d2NGYxcmMyYzk0dG9vcnVhayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26ufpIWyTAznh9hFC/giphy.gif";
 
-  const getImageUrl = () => {
-    if (imageError || !book.imageUrl) {
-      return defaultCoverImage;
-    }
+  // const getImageUrl = () => {
+  //   if (imageError || !book.imageUrl) {
+  //     return defaultCoverImage;
+  //   }
     
-    // Check if the imageUrl already starts with http/https
-    if (book.imageUrl && (book.imageUrl.startsWith('http://') || book.imageUrl.startsWith('https://'))) {
-      return book.imageUrl;
-    }
+  //   // Check if the imageUrl already starts with http/https
+  //   if (book.image && (book.image.startsWith('http://') || book.image.startsWith('https://'))) {
+  //     return book.image;
+  //   }
     
-    // Otherwise construct the URL with the backend
-    return `${createBookApi}/${book.imageUrl}`;
-  };
+  //   // Otherwise construct the URL with the backend
+  //   return `${createBookApi}/${book.image}`;
+  // };
   
   return (
     <div 
@@ -87,11 +87,11 @@ const FeaturedBook = ({ book }) => {
               <div className="absolute rounded-lg blur opacity-30 group-hover:opacity-50 transition duration-300"></div>
               <div className="relative">
                 <img 
-                src={getImageUrl()} 
+                src={imageError ? defaultCoverImage : book.image} 
                   alt={book.title} 
                   className="w-[650px] h-[300px] object-cover rounded shadow-lg transform transition-transform duration-500 group-hover:scale-105 cursor-pointer"
                   onError={() => {
-                    console.error("Image failed to load:", getImageUrl());
+                    console.error("Image failed to load:", book.image);
                     setImageError(true);
                   }}
                 />
