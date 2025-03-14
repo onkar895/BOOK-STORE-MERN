@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import BackButton from '../Components/BackButton'
-import Spinner from '../Components/Spinner'
 import { useNavigate } from 'react-router-dom'
 import { apiUrl } from "../utils/bookAPI"
 import NavBar from '../Components/NavBar'
+import { IoCloseSharp } from "react-icons/io5";
+import { useSnackbar } from 'notistack';
 
 const CreateBooks = () => {
   const [title, setTitle] = useState('');
@@ -18,6 +19,8 @@ const CreateBooks = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const setAutoError = (message) => {
     setError(message);
@@ -88,10 +91,26 @@ const CreateBooks = () => {
       }
 
       const result = await response.json();
-      console.log('Book created successfully:', result);
+      closeSnackbar()
+      enqueueSnackbar('Book Created Successfully', {
+        variant: 'success',
+        action: (key) => (
+          <button onClick={() => closeSnackbar(key)} className="text-white px-2 text-xl hover:scale-110 transition-all duration-300 ease-in-out">
+            <IoCloseSharp/>
+          </button>
+        ),
+      })
       navigate('/');
     } catch (error) {
-      console.error('Error saving book:', error);
+      closeSnackbar()
+      enqueueSnackbar('Error Saving Book', {
+        variant: 'error',
+        action: (key) => (
+          <button onClick={() => closeSnackbar(key)} className="text-white px-2 text-xl hover:scale-110 transition-all duration-300 ease-in-out">
+            <IoCloseSharp/>
+          </button>
+        ),
+      })
       setAutoError('Failed to save book. Please try again.');
     } finally {
       setLoading(false);
@@ -110,9 +129,6 @@ const CreateBooks = () => {
             <BackButton />
             <h1 className='text-2xl text-sky-400 tracking-widest'>Create Book</h1>
           </div>
-        
-          {loading && <Spinner />}
-
           <div className='flex flex-col gap-6 border border-sky-500 rounded-xl w-full max-w-xl md:max-w-2xl px-10 py-12 mx-auto'>
             <div>
               <input

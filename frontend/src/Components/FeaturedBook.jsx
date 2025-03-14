@@ -68,14 +68,14 @@ const FeaturedBook = ({ book }) => {
       <div className="relative rounded-lg shadow-3xl overflow-hidden transition-all duration-300 border border-gray-700">
         <div className="flex flex-col lg:flex-row">
           {/* Book cover */}
-          <div className="p-6 flex items-center justify-center w-full">
+          <div className="p-6 flex items-center justify-center">
             <div className="relative group">
               <div className="absolute rounded-lg blur opacity-30 group-hover:opacity-50 transition duration-300"></div>
               <div className="relative">
                 <img 
                 src={imageError ? defaultCoverImage : `${createBookApi}${book.image}`} 
                   alt={book.title} 
-                  className="w-[100vw] lg:w-[60vw] xl:w-[50vw] h-[25vh] sm:h-[30vh] md:h-[35vh] xl:h-[45vh] object-cover rounded shadow-lg transform transition-transform duration-500 group-hover:scale-105 cursor-pointer"
+                  className="w-[100vw] lg:w-[60vw] xl:w-[50vw] h-[25vh] sm:h-[42vh] object-cover rounded shadow-lg transform transition-transform duration-500 group-hover:scale-105 cursor-pointer"
                   onError={() => {
                     console.error("Image failed to load:", `${createBookApi}${book.image}`);
                     setImageError(true);
