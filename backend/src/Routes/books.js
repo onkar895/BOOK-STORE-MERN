@@ -21,8 +21,8 @@ router.get("/books", async (req, res) => {
 // Route for save/create a new book
 router.post("/books", upload.single("image"), async (req, res) => {
   try {
-     console.log("Received Body:", req.body);
-     console.log("Received File:", req.file);
+    console.log("Received Body:", req.body);
+    console.log("Received File:", req.file);
 
     const { title, author, price, description, publishYear } = req.body;
 
@@ -38,7 +38,7 @@ router.post("/books", upload.single("image"), async (req, res) => {
     }
 
     // Store the file path for retrieval later
-    const imageUrl =  `/uploads/${req.file.filename}`;
+    const imageUrl = `/uploads/${req.file.filename}`;
 
     const newBook = new Book({
       title,
@@ -51,7 +51,7 @@ router.post("/books", upload.single("image"), async (req, res) => {
 
     const savedBook = await newBook.save();
 
-    console.log("savedBook :" ,savedBook)
+    console.log("savedBook :", savedBook);
 
     if (!savedBook) {
       return res.status(500).json({ message: "Error creating a new book" });
@@ -103,13 +103,21 @@ router
         return res.status(400).json({ message: "All text fields are required" });
       }
 
-      // Check if an image file is uploaded
-      let imageUrl = book.imageUrl; // Keep existing image if not updated
+      // Create update object with required fields
+      const updateData = {
+        title,
+        author,
+        price: parseFloat(price),
+        description,
+        publishYear: parseInt(publishYear),
+      };
+
+      // Only update image if a new file was uploaded
       if (req.file) {
-        imageUrl = `uploads/${req.file.filename}`;
+        updateData.image = `/uploads/${req.file.filename}`;
       }
 
-      const updatedBook = await Book.findByIdAndUpdate(req.params.bookId, { title, imageUrl, author, price, description, publishYear }, { new: true });
+      const updatedBook = await Book.findByIdAndUpdate(req.params.bookId, updateData, { new: true });
 
       console.log("Updated Data:", updatedBook);
 
