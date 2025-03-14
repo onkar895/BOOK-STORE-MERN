@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 
 const bookSchema = new mongoose.Schema(
   {
-    title: { type: String, required: false },
-    image: { type: String },
-    author: { type: String, required: false },
-    price: { type: Number, required: false },
-    description: { type: String, required: false },
-    publishYear: { type: Number, required: false },
+    title: { type: String, required: true },
+    image: { type: String, required: true },
+    author: { type: String, required: true },
+    price: { type: Number, required: true },
+    description: { type: String, required: true },
+    publishYear: { type: Number, required: true },
   },
   { versionKey: false, timestamps: true }
 ); 
