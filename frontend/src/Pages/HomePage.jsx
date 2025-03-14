@@ -37,7 +37,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 mx-auto px-4 sm:px-10 lg:px-28`}>
+    <div className={`min-h-screen transition-colors duration-300 mx-auto px-4 md:px-6 lg:px-12 xl:px-20`}>
       {/* Navbar */}
       <NavBar />
       {/* Hero Section */}
@@ -50,7 +50,7 @@ const HomePage = () => {
       </div>
 
       {/* Main Content */}
-      <div id="book-collection" className='w-full mx-auto px-4 py-10'>
+      <div id="book-collection" className='w-full mx-auto py-10'>
         <div className='flex flex-col md:flex-row justify-between items-center mb-10 gap-4'>
           <h2 className={`text-2xl md:text-3xl font-bold dark:text-white text-gray-800`}>
             Book Collection

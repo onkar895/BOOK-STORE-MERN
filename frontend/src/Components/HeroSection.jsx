@@ -22,15 +22,15 @@ const HeroSection = () => {
 
   return (
     <div className="w-full py-32">
-      <div className="flex flex-col md:flex-row items-center">
+      <div className="flex flex-col xl:flex-row items-center gap-10">
         <div
-          className={`flex flex-col items-center md:items-start gap-4 mb-10 md:mb-0 transform transition-all duration-1000 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'
+          className={`flex flex-col items-center xl:items-start gap-4 mb-10 md:mb-0 transform transition-all duration-1000 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'
             }`}
         >
-          <h1 className="text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-tight text-center">
+          <h1 className="text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-tight text-center ">
             Your <span className="text-sky-400">Digital</span> Bookshelf
           </h1>
-          <p className="text-lg md:text-xl text-gray-300 mb-8 text-center md:text-start">
+          <p className="text-lg md:text-xl text-gray-300 mb-8 text-center lg:text-start">
             Manage your book collection, discover new titles, and keep track of your reading journey all in one place.
           </p>
           <div className="flex flex-wrap gap-4">

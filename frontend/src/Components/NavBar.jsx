@@ -28,13 +28,13 @@ const NavBar = () => {
 
   return (
     <nav className="fixed top-0 left-0 z-50 bg-slate-900 transition-colors duration-300 w-full">
-      <div className="mx-auto px-4 sm:px-10 lg:px-28">
+      <div className="mx-auto px-4 md:px-6 lg:px-12 xl:px-20">
         <div className="flex items-center justify-between h-20">
           {/* Logo and Brand */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-2 group">
               <FaBook className="text-2xl text-sky-500 transition-colors duration-300" />
-              <div className="text-2xl font-bold">
+              <div className="text-2xl md:text-3xl font-bold">
                 <span className="text-sky-500">
                   Book
                 </span>
@@ -46,7 +46,7 @@ const NavBar = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center justify-between space-x-8">
+          <div className="hidden lg:flex items-center justify-between space-x-8">
             <NavLink 
               to="/" 
               className={({ isActive }) => 
@@ -114,19 +114,19 @@ const NavBar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center">
+          <div className="flex lg:hidden items-center">
             <button 
               className="text-gray-300 hover:text-sky-500 focus:outline-none"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? <MdClose size={24} /> : <MdMenu size={24} />}
+              {mobileMenuOpen ? <MdClose size={28} /> : <MdMenu size={28} />}
             </button>
           </div>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      <div className={`md:hidden fixed top-20 left-0 w-full bg-slate-900 shadow-lg transition-all duration-500 ease-in-out 
+      <div className={`lg:hidden fixed top-20 left-0 w-full bg-slate-900 shadow-lg transition-all duration-500 ease-in-out 
   ${mobileMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"}`}>
         <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3 bg-slate-900 shadow-lg">
           <NavLink 

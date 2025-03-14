@@ -103,7 +103,7 @@ const CreateBooks = () => {
 
   return (
     <>
-      <div className="mx-auto px-4 sm:px-10 lg:px-28">
+      <div className="mx-auto">
         <NavBar />
         <div className='py-36 sm:py-28'>
           <div className='flex items-center gap-10 justify-center my-6'>

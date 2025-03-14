@@ -80,7 +80,7 @@ const FeaturedBook = ({ book }) => {
       </div>
       
       <div className="relative rounded-lg shadow-3xl overflow-hidden transition-all duration-300 border border-gray-700">
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col lg:flex-row">
           {/* Book cover */}
           <div className="p-6 flex items-center justify-center">
             <div className="relative group">
@@ -89,7 +89,7 @@ const FeaturedBook = ({ book }) => {
                 <img 
                 src={imageError ? defaultCoverImage : book.image} 
                   alt={book.title} 
-                  className="w-[650px] h-[300px] object-cover rounded shadow-lg transform transition-transform duration-500 group-hover:scale-105 cursor-pointer"
+                  className="w-[650px] h-[300px] lg:w-[420px] xl:w-[550px] object-cover rounded shadow-lg transform transition-transform duration-500 group-hover:scale-105 cursor-pointer"
                   onError={() => {
                     console.error("Image failed to load:", book.image);
                     setImageError(true);

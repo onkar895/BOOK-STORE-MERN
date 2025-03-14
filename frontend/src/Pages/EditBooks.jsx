@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { apiUrl } from "../utils/bookAPI"
 import useFetchBooks from '../Hooks/useFetchBooks'
 import { createBookApi } from '../utils/bookAPI'
+import ComingSoon from '../assets/Coming-Soon.png'
 
 const EditBooks = () => {
   const [title, setTitle] = useState('');
@@ -19,11 +20,13 @@ const EditBooks = () => {
   const [saveError, setSaveError] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const [isError, isSetError] = useState('');
-
+  
   const navigate = useNavigate();
   const {id} = useParams();
 
   const { books: book, loading, error } = useFetchBooks(id); // Fetch single book data
+
+   const defaultBookCover = ComingSoon
 
   useEffect(() => {
     if (book) {
@@ -33,12 +36,11 @@ const EditBooks = () => {
       setDescription(book.description || "");
       setPublishYear(book.publishYear ? book.publishYear.toString() : "");
       // If book has image, set the preview URL correctly
-      if (book.imageUrl) {
-        setImagePreview(`${createBookApi}/${book.imageUrl}`);
-      }
+      book.image ? setImagePreview(`${createBookApi}${book.image}`) : setImagePreview(defaultBookCover)
+
       setIsDataLoaded(true);
     }
-  }, [book]);
+  }, [book, defaultBookCover]);
 
   const setAutoError = (message) => {
     setSaveError(message);
@@ -74,20 +76,20 @@ const EditBooks = () => {
   };
 
   const handleEditBook = async () => {
-    if (!title || !imageFile || !author || !price || !description || !publishYear) {
-      setAutoError('Please fill in all fields');
+    if (!title || !author || !price || !description || !publishYear) {
+      setAutoError('Please fill in all required fields');
       return;
     }
 
     try {
       const formData = new FormData();
       formData.append('title', title);
+      if (imageFile) formData.append('image', imageFile);
       formData.append('author', author);
       formData.append('price', parseFloat(price));
       formData.append('description', description);
       formData.append('publishYear', parseInt(publishYear));
-      if (imageFile) formData.append('image', imageFile);
-
+      
       setIsSaving(true);
       setSaveError("");
 
