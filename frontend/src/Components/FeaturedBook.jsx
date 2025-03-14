@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaStar, FaRegStar, FaStarHalfAlt, FaEye } from 'react-icons/fa';
-// import { createBookApi } from "../utils/bookAPI";
+import { createBookApi } from "../utils/bookAPI";
 
 const FeaturedBook = ({ book }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -52,25 +52,11 @@ const FeaturedBook = ({ book }) => {
   // Default values for potentially missing properties
   const defaultDescription = "A captivating story that will take you on an unforgettable journey through imagination and adventure.";
   const defaultCoverImage = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWt1cjZ3M200OG9tb3ZjcnU4NXpsM3d2NGYxcmMyYzk0dG9vcnVhayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26ufpIWyTAznh9hFC/giphy.gif";
-
-  // const getImageUrl = () => {
-  //   if (imageError || !book.imageUrl) {
-  //     return defaultCoverImage;
-  //   }
-    
-  //   // Check if the imageUrl already starts with http/https
-  //   if (book.image && (book.image.startsWith('http://') || book.image.startsWith('https://'))) {
-  //     return book.image;
-  //   }
-    
-  //   // Otherwise construct the URL with the backend
-  //   return `${createBookApi}/${book.image}`;
-  // };
   
   return (
     <div 
       id="featured-book"
-      className={`w-full max-w-7xl mx-auto relative transform transition-all duration-1000 ${
+      className={`w-full mx-auto relative transform transition-all duration-1000 ${
         isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
       }`}>
       
@@ -82,16 +68,16 @@ const FeaturedBook = ({ book }) => {
       <div className="relative rounded-lg shadow-3xl overflow-hidden transition-all duration-300 border border-gray-700">
         <div className="flex flex-col lg:flex-row">
           {/* Book cover */}
-          <div className="p-6 flex items-center justify-center">
+          <div className="p-6 flex items-center justify-center w-full">
             <div className="relative group">
               <div className="absolute rounded-lg blur opacity-30 group-hover:opacity-50 transition duration-300"></div>
               <div className="relative">
                 <img 
-                src={imageError ? defaultCoverImage : book.image} 
+                src={imageError ? defaultCoverImage : `${createBookApi}${book.image}`} 
                   alt={book.title} 
-                  className="w-[650px] h-[300px] lg:w-[420px] xl:w-[550px] object-cover rounded shadow-lg transform transition-transform duration-500 group-hover:scale-105 cursor-pointer"
+                  className="w-[100vw] lg:w-[60vw] xl:w-[50vw] h-[25vh] sm:h-[30vh] md:h-[35vh] xl:h-[45vh] object-cover rounded shadow-lg transform transition-transform duration-500 group-hover:scale-105 cursor-pointer"
                   onError={() => {
-                    console.error("Image failed to load:", book.image);
+                    console.error("Image failed to load:", `${createBookApi}${book.image}`);
                     setImageError(true);
                   }}
                 />
