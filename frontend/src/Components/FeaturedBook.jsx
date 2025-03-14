@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { FaStar, FaRegStar, FaStarHalfAlt, FaEye } from 'react-icons/fa';
+import { createBookApi } from "../utils/bookAPI";
 
 const FeaturedBook = ({ book }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [imageError, setImageError] = useState(false);
   
   // Generate star ratings
   const renderRatingStars = (rating = 4.5) => {
@@ -49,7 +51,21 @@ const FeaturedBook = ({ book }) => {
   
   // Default values for potentially missing properties
   const defaultDescription = "A captivating story that will take you on an unforgettable journey through imagination and adventure.";
-  const defaultCoverImage = "https://nnp.wustl.edu/library/periodical/15587/300x450?text=Book+Cover";
+  const defaultCoverImage = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWt1cjZ3M200OG9tb3ZjcnU4NXpsM3d2NGYxcmMyYzk0dG9vcnVhayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26ufpIWyTAznh9hFC/giphy.gif";
+
+  const getImageUrl = () => {
+    if (imageError || !book.imageUrl) {
+      return defaultCoverImage;
+    }
+    
+    // Check if the imageUrl already starts with http/https
+    if (book.imageUrl && (book.imageUrl.startsWith('http://') || book.imageUrl.startsWith('https://'))) {
+      return book.imageUrl;
+    }
+    
+    // Otherwise construct the URL with the backend
+    return `${createBookApi}/${book.imageUrl}`;
+  };
   
   return (
     <div 
@@ -71,9 +87,13 @@ const FeaturedBook = ({ book }) => {
               <div className="absolute rounded-lg blur opacity-30 group-hover:opacity-50 transition duration-300"></div>
               <div className="relative">
                 <img 
-                src={book.imageUrl ? `https://book-store-mern-31yo.onrender.com${book.imageUrl}` : defaultCoverImage} 
+                src={getImageUrl()} 
                   alt={book.title} 
                   className="w-[650px] h-[300px] object-cover rounded shadow-lg transform transition-transform duration-500 group-hover:scale-105 cursor-pointer"
+                  onError={() => {
+                    console.error("Image failed to load:", getImageUrl());
+                    setImageError(true);
+                  }}
                 />
               </div>
             </div>
@@ -116,12 +136,12 @@ const FeaturedBook = ({ book }) => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
-              <Link 
+              <NavLink 
                 to={`/books/details/${book._id}`}
                 className="bg-sky-600 hover:bg-sky-700 text-white font-medium py-2 px-6 rounded-full shadow-md transition-colors duration-300 flex justify-center items-center"
               >
                 View Details
-              </Link>
+              </NavLink>
               <button 
                 className="bg-transparent border-2 border-sky-600 text-sky-600 dark:text-sky-400 dark:border-sky-400 hover:bg-sky-50 dark:hover:bg-sky-900/30 font-medium py-2 px-6 rounded-full transition-colors duration-300 flex justify-center items-center gap-2"
               >

@@ -11,7 +11,7 @@ const ShowBook = () => {
   const { id } = useParams()
   const { books: book, loading } = useFetchBooks(id)
 
-  const defaultCoverImage = "https://nnp.wustl.edu/library/periodical/15587/300x450?text=Book+Cover";
+  const defaultCoverImage = "https://nnp.wustl.edu/img/bookCovers/genericBookCover.jpg";
 
   return (
     <>

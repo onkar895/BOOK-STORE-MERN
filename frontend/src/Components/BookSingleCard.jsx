@@ -6,6 +6,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { BsInfoCircle, BsCurrencyDollar, BsCardText } from "react-icons/bs";
 import { MdOutlineDelete } from "react-icons/md";
 import { createBookApi } from "../utils/bookAPI";
+import ComingSoon from '../assets/Coming-Soon.png'
 
 const BookSingleCard = ({ book, index }) => {
   const [imageError, setImageError] = useState(false);
@@ -17,16 +18,30 @@ const BookSingleCard = ({ book, index }) => {
   };
 
   // Default image to show when the URL is invalid or image fails to load
-  const defaultBookCover = "https://nnp.wustl.edu/library/periodical/15587/150x200?text=No+Image";
+  const defaultBookCover = ComingSoon
+
+  const getImageUrl = () => {
+    if (imageError) {
+      return defaultBookCover;
+    }
+    
+    // Check if the imageUrl already starts with http/https
+    if (book.imageUrl && (book.imageUrl.startsWith('http://') || book.imageUrl.startsWith('https://'))) {
+      return book.imageUrl;
+    }
+    
+    // Otherwise construct the URL with the backend
+    return `${createBookApi}/${book.imageUrl}`;
+  };
 
   return (
     <div className='relative border border-gray-600 shadow-md rounded-md p-6  cursor-pointer my-6'>
       <NavLink to={`/books/details/${book._id}`}>
         <img
-          src={imageError ? defaultBookCover : `${createBookApi}/${book.imageUrl}`}
+          src={getImageUrl()}
           className='block m-auto w-[650px] h-[300px] md:h-[200px] object-cover rounded-lg transition-transform hover:scale-105 duration-500 ease-in-out'
           onError={() => {
-            console.error("Image failed to load:", `${createBookApi}/${book.imageUrl}`);
+            console.error("Image failed to load:", getImageUrl());
             setImageError(true);
           }}
         />

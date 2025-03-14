@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { MdOutlineAddBox, MdMenuBook } from 'react-icons/md';
 import BookVerse from '../assets/bookverse-logo.png'
 import { useNavigate } from 'react-router-dom';
@@ -34,13 +34,13 @@ const HeroSection = () => {
             Manage your book collection, discover new titles, and keep track of your reading journey all in one place.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link
+            <NavLink
               to="/books/create"
               className="inline-flex items-center px-3 md:px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-all duration-300"
             >
               <MdOutlineAddBox className="mr-2 text-xl" />
               Add New Book
-            </Link>
+            </NavLink>
             <button
               onClick={() => navigate('/books')}
               className="inline-flex items-center px-3 md:px-6 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-all duration-300"
