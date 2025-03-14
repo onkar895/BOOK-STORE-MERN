@@ -21,6 +21,9 @@ router.get("/books", async (req, res) => {
 // Route for save/create a new book
 router.post("/books", upload.single("image"), async (req, res) => {
   try {
+     console.log("Received Body:", req.body);
+     console.log("Received File:", req.file);
+
     const { title, author, price, description, publishYear } = req.body;
 
     // Check if required fields are provided
@@ -30,11 +33,12 @@ router.post("/books", upload.single("image"), async (req, res) => {
 
     // Check if file was uploaded
     if (!req.file) {
+      console.error("No file uploaded");
       return res.status(400).json({ message: "Image file is required" });
     }
 
     // Store the file path for retrieval later
-    const imageUrl = `uploads/${req.file.filename}`;
+    const imageUrl =  `/uploads/${req.file.filename}`;
 
     const newBook = new Book({
       title,
@@ -42,10 +46,12 @@ router.post("/books", upload.single("image"), async (req, res) => {
       price: parseFloat(price),
       description,
       publishYear: parseInt(publishYear),
-      imageUrl 
+      image: imageUrl,
     });
 
     const savedBook = await newBook.save();
+
+    console.log("savedBook :" ,savedBook)
 
     if (!savedBook) {
       return res.status(500).json({ message: "Error creating a new book" });
