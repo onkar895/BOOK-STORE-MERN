@@ -1,5 +1,5 @@
 import express from 'express';
-import connectDb from './Database/db.js'
+import connectDb from './Database/db.js';
 import bookRoutes from './Routes/books.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
