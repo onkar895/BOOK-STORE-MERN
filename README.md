@@ -2,24 +2,28 @@
 
 A modern, responsive full-stack application for managing book inventory with complete CRUD functionality and featuring image uploads via Multer & Cloudinary.
 
+<br>
+
 ![bookverse-logo.png](<https://media-hosting.imagekit.io//c914e0b392db4434/bookverse-logo.png?Expires=1836666116&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=dEQCEQna7sEtoTQOa-Hdjw4c31hoTjZS3U~pOtesAs5UCwO5gBn2exHDTFSohd871C-RjoKzcTYrL-0f9oxtiPUUXp7FNUol-2TMRokg69vJEv2EAgk2VLNsRN1e4IHfs~cUV2hb41WfCO6W4FrWIswWKC8hVvn8GXstbmEiA73VWM9uhXCFLO6yQ5r~CVLfs99BAinNKoPE1dNNwK-wfLoCsJRRoUpa4b-5WP~aPythUug0H0el7OjiGaaTRVRX86L7FjYZiXtEKO8Sc2kKjailuDXUzois6qWwyp~9rj9HbPbmCB43ML6MeaBw1z0XqU3ebsxq4iHUunPgmCAZUA__>)
 
-![BookVerse Demo](https://book-store-mern-web.vercel.app/)
+<br>
+
+### **BookVerse Demo** - [BookVerse Live](https://book-store-mern-web.vercel.app/)
+
+<br>
 
 ## 🚀 Features
 
 - **Complete CRUD Operations**: Create, read, update, and delete books.
-- **Image Management**: Upload and manage book cover images.
+- **Secure Image Management**: Image upload and editing with Multer.
 - **Responsive UI**: Built with React and Tailwind CSS for all device sizes.
 - **RESTful API**: Properly structured backend with Express routes.
 - **Database Integration**: MongoDB for efficient data storage and retrieval.
 - **Frontend Routing**: Seamless navigation between pages.
 - **Search Functionality** - Improve book discovery with search the book.
-- **Secure Image Uploads**: Image upload and editing with Multer.
 - **Custom Hooks**: Reusable logic for API calls, form handling, and image uploads.
 - **Cross-Origin Support**: Configured CORS policy for secure communication.
 - **Cloud Storage**: Cloudinary integration for image hosting and optimization.
-- **Performance Optimized**: Lazy loading, code splitting, and asset optimization.
 
 ## 🛠️ Tech Stack
 
@@ -82,7 +86,7 @@ MERN BOOK-STORE/
 │
 ├── backend/                 # Backend Node.js/Express application
 │   ├── src/
-│   |   ├── database/        # Database configuration
+│   |   ├── Database/        # Database configuration
 │   |   ├── Middleware/      # Custom Middleware Multer with Cloudinary setup
 │   |   ├── Models/          # Mongoose data models
 │   |   ├── Routes/          # Express route definitions
@@ -91,6 +95,30 @@ MERN BOOK-STORE/
 │
 └── README.md                # Project documentation
 ```
+
+## 📸 Screenshots: 
+
+![Hero Section](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/edfxtq1jnejm86piawm3.png)
+
+![Featured Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7t93q54t4xgjsg4f91pc.png)
+
+![Book Collection Card View](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/l0iu72mcbxav492ne623.png)
+
+![Book Collection Table View](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vlbcpa3maygnz7mpl2f6.png)
+
+![Show Details Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/mh3vc5r2oshnhgmjop7m.png)
+
+![About Page](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rd4tsa7nardpmszts05o.png)
+
+![Create Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/501pmmri4flfff0rrxr3.png)
+
+![Update Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fl9mj07pn9xesjijs9er.png)
+
+![Delete Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/66llcmbvxcnbqkn290ls.png)
+
+![Footer](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sf8ztkkwtgonbptgecyy.png)
+
+---
 
 ## 🚀 Getting Started
 
@@ -168,9 +196,12 @@ MERN BOOK-STORE/
 ## 🎯 Future Enhancements (Working in Progress)
 
 - 🛒 Wishlist & Cart System - Allow users to save books for future purchases.
+- ↗️ Redux-Toolkit - Implementation for efficient state management.
+- ✨ Shimmer UI - Providing an engaging and visually pleasing loading experience.
+- 🔎 Advanced Search & Filters - Enhance book discovery with intelligent search algorithms and category-based filtering.
 - 📖 User Authentication & Reviews -  Implement user registration, login, and book reviews.
-- 📊 Analytics Dashboard - Provide insights into book popularity, user activity, and sales data.
 - 📦 Order & Payment System - Allow users to purchase books and integrate with payment gateways.
+- 🚀 Performance Optimization
 
 ## 👨‍💻 Author
 
