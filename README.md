@@ -108,13 +108,13 @@ MERN BOOK-STORE/
 
 ![Show Details Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/mh3vc5r2oshnhgmjop7m.png)
 
-![About Page](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rd4tsa7nardpmszts05o.png)
-
-![Create Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/501pmmri4flfff0rrxr3.png)
+![Create Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rd4tsa7nardpmszts05o.png)
 
 ![Update Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fl9mj07pn9xesjijs9er.png)
 
 ![Delete Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/66llcmbvxcnbqkn290ls.png)
+
+![About Page](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/501pmmri4flfff0rrxr3.png)
 
 ![Footer](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sf8ztkkwtgonbptgecyy.png)
 
@@ -170,7 +170,7 @@ MERN BOOK-STORE/
    npm run dev
    ```
 
-6. Access the application at `http://localhost:5173`
+6. Access the application at [http://localhost:5173](http://localhost:5173)
 
 ## 🚀 Deployment
 
