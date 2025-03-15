@@ -12,8 +12,6 @@ const app = express();
 
 // Middleware for handling CORS policy:
 // Option 1: Allow all origins with default of cors(*)
-app.use(cors());
-
 // Option 2: Allow custom origins
 // app.use(
 //   cors({
@@ -22,6 +20,8 @@ app.use(cors());
 //     allowedHeaders: ['Content-Type, Authorization'],
 //   })
 // )
+
+app.use(cors());
 
 // Parse JSON requests
 app.use(express.json());
