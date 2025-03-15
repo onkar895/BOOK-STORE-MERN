@@ -21,7 +21,7 @@ A modern, responsive full-stack application for managing book inventory with com
 - **Database Integration**: MongoDB for efficient data storage and retrieval.
 - **Frontend Routing**: Seamless navigation between pages.
 - **Search Functionality** - Improve book discovery with search the book.
-- **Custom Hooks**: Reusable logic for API calls, form handling, and image uploads.
+- **Notistack**: React library which makes it super easy to display notifications on your web apps. 
 - **Cross-Origin Support**: Configured CORS policy for secure communication.
 - **Cloud Storage**: Cloudinary integration for image hosting and optimization.
 
@@ -31,6 +31,7 @@ A modern, responsive full-stack application for managing book inventory with com
 - **React.js**: UI library for building the user interface.
 - **React Router**: For client-side navigation.
 - **Tailwind CSS**: Utility-first CSS framework for styling.
+- **Notistack**: React library which makes it super easy to display notifications on your web apps. 
 - **Custom Hooks**: For reusable state logic, API calls, and image handling.
 - **Axios**: Promise-based HTTP client for API requests.
 - **Code Splitting**: For improved loading performance.
