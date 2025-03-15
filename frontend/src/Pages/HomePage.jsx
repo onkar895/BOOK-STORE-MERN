@@ -43,7 +43,7 @@ const HomePage = () => {
       {/* Hero Section */}
       <HeroSection/>
       {/* Featured Book */}
-      <div className="my-16">
+      <div className="my-10">
           {!loading && !error && featuredBook && (
             <FeaturedBook book={featuredBook} />
           )}

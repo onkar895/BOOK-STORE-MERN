@@ -5,7 +5,6 @@ import Spinner from "../Components/Spinner"
 import { Star, Clock, DollarSign } from "lucide-react"
 import useFetchBooks from "../Hooks/useFetchBooks"
 import NavBar from "../Components/NavBar"
-import { createBookApi } from "../utils/bookAPI"
 import ComingSoon from '../assets/Coming-Soon.png'
 
 const ShowBook = () => {
@@ -35,10 +34,10 @@ const ShowBook = () => {
             {/* Book Details Container */}
             <div className="grid md:grid-cols-3 gap-6 p-10">
               <img 
-                src={imageError ? defaultBookCover : `${createBookApi}${book.image}`} 
-                className="block m-auto w-[650px] h-[300px] md:h-[200px] object-cover rounded-lg transition-transform hover:scale-105 duration-500 ease-in-out"
+                src={imageError ? defaultBookCover : book.image} 
+                className="block m-auto w-[650px] h-[300px] md:h-[350px] object-cover rounded-lg transition-transform hover:scale-105 duration-500 ease-in-out"
                 onError={() => {
-                  console.error("Image failed to load:", `${createBookApi}${book.image}`);
+                  console.error("Image failed to load:", book.image);
                   setImageError(true);
                 }} 
               />
