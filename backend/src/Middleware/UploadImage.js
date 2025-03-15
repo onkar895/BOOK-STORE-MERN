@@ -1,41 +1,25 @@
 // In your UploadImage.js middleware
 import multer from 'multer';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import { v2 as cloudinary } from 'cloudinary';
+import dotenv from 'dotenv';
 import path from 'path';
-import fs from 'fs';
-import { fileURLToPath } from 'url';
 
-// Get the directory of the current module
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+dotenv.config();
 
-// Create absolute path to upload directory
-const uploadDir = path.join(__dirname, '../uploads');
+// Configure Cloudinary
+cloudinary.config({
+  url: process.env.CLOUDINARY_URL
+});
 
-// Ensure upload directory exists with proper permissions
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true, mode: 0o777 });
-  console.log(`Created upload directory: ${uploadDir}`);
-}
-
-// Check if directory is writable
-try {
-  fs.accessSync(uploadDir, fs.constants.W_OK);
-  console.log(`Upload directory is writable: ${uploadDir}`);
-} catch (err) {
-  console.error(`Upload directory is not writable: ${uploadDir}`);
-  console.error(err);
-}
-
-// Setup local storage
-const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    console.log(`Saving file to: ${uploadDir}`);
-    cb(null, uploadDir);
-  },
-  filename: function(req, file, cb) {
-    const uniqueName = Date.now() + '-' + file.originalname;
-    console.log(`File will be saved as: ${uniqueName}`);
-    cb(null, uniqueName);
+// Configure multer-storage-cloudinary
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    // Cloudinary folder where images will be stored
+    folder: 'book-store', 
+    allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
+    transformation: [{ width: 500, height: 500, crop: 'limit' }], // Optional: resize images
   }
 });
 
@@ -44,7 +28,7 @@ const fileFilter = (req, file, cb) => {
   const filetypes = /jpeg|jpg|png|gif|webp/;
   const mimetype = filetypes.test(file.mimetype);
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  
+    
   if (mimetype && extname) {
     return cb(null, true);
   }

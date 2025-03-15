@@ -37,8 +37,8 @@ router.post("/books", upload.single("image"), async (req, res) => {
       return res.status(400).json({ message: "Image file is required" });
     }
 
-    // Store the file path for retrieval later
-    const imageUrl = `/uploads/${req.file.filename}`;
+    // Use the Cloudinary URL directly
+    const imageUrl = req.file.path;
 
     const newBook = new Book({
       title,
@@ -114,7 +114,7 @@ router
 
       // Only update image if a new file was uploaded
       if (req.file) {
-        updateData.image = `/uploads/${req.file.filename}`;
+        updateData.image = req.file.path;
       }
 
       const updatedBook = await Book.findByIdAndUpdate(req.params.bookId, updateData, { new: true });

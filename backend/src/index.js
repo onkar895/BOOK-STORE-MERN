@@ -2,18 +2,15 @@ import express from 'express';
 import connectDb from './database/db.js';
 import bookRoutes from './Routes/books.js';
 import cors from 'cors';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const PORT = process.env.PORT || 5555;
 
-// Get the directory path using ES modules approach
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 const app = express();
 
-// Middleware for handling CORS policy
+// Middleware for handling CORS policy:
 // Option 1: Allow all origins with default of cors(*)
 app.use(cors());
 
@@ -33,9 +30,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // API routes
 app.use("/api", bookRoutes);
-
-// Serve static files from uploads directory
-app.use('/uploads', express.static(path.join(__dirname, './uploads')));
 
 // Error handling middleware
 app.use((err, req, res, next) => {
