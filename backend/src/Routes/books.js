@@ -48,7 +48,9 @@ router.post("/books", upload.single("image"), async (req, res) => {
       publishYear: parseInt(publishYear),
       image: imageUrl,
     });
-
+    
+    console.log("Uploaded Image URL:", req.file.path); 
+    
     const savedBook = await newBook.save();
 
     console.log("savedBook :", savedBook);
