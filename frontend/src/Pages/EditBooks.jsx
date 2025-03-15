@@ -4,7 +4,6 @@ import BackButton from "../Components/BackButton";
 import { useNavigate, useParams } from "react-router-dom";
 import { apiUrl } from "../utils/bookAPI";
 import useFetchBooks from "../Hooks/useFetchBooks";
-import { createBookApi } from "../utils/bookAPI";
 import ComingSoon from "../assets/Coming-Soon.png";
 import { useSnackbar } from "notistack";
 import { IoCloseSharp } from "react-icons/io5";
@@ -37,7 +36,7 @@ const EditBooks = () => {
       setPrice(book.price ? book.price.toString() : "");
       setDescription(book.description || "");
       setPublishYear(book.publishYear ? book.publishYear.toString() : "");
-      setImagePreview(book.image ? `${createBookApi}${book.image}` : ComingSoon);
+      setImagePreview(book.image ? book.image : ComingSoon);
 
       setIsDataLoaded(true);
     }

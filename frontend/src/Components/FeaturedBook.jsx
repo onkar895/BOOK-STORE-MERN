@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaStar, FaRegStar, FaStarHalfAlt, FaEye } from 'react-icons/fa';
-import { createBookApi } from "../utils/bookAPI";
 
 const FeaturedBook = ({ book }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -73,11 +72,11 @@ const FeaturedBook = ({ book }) => {
               <div className="absolute rounded-lg blur opacity-30 group-hover:opacity-50 transition duration-300"></div>
               <div className="relative">
                 <img 
-                src={imageError ? defaultCoverImage : `${createBookApi}${book.image}`} 
+                src={imageError ? defaultCoverImage : book.image} 
                   alt={book.title} 
                   className="w-[100vw] lg:w-[60vw] xl:w-[50vw] h-[25vh] sm:h-[42vh] object-cover rounded shadow-lg transform transition-transform duration-500 group-hover:scale-105 cursor-pointer"
                   onError={() => {
-                    console.error("Image failed to load:", `${createBookApi}${book.image}`);
+                    console.error("Image failed to load:", book.image);
                     setImageError(true);
                   }}
                 />

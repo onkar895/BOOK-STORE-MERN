@@ -5,7 +5,6 @@ import { BiUserCircle, BiShow } from "react-icons/bi";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsInfoCircle, BsCurrencyDollar, BsCardText } from "react-icons/bs";
 import { MdOutlineDelete } from "react-icons/md";
-import { createBookApi } from "../utils/bookAPI";
 import ComingSoon from '../assets/Coming-Soon.png'
 
 const BookSingleCard = ({ book, index }) => {
@@ -24,10 +23,10 @@ const BookSingleCard = ({ book, index }) => {
     <div className='relative border border-gray-600 shadow-md rounded-md p-6  cursor-pointer my-6'>
       <NavLink to={`/books/details/${book._id}`}>
         <img
-          src={imageError ? defaultBookCover : `${createBookApi}${book.image}`}
+          src={imageError ? defaultBookCover : book.image} alt={book.title}
           className='block m-auto w-[650px] h-[300px] md:h-[200px] object-cover rounded-lg transition-transform hover:scale-105 duration-500 ease-in-out'
           onError={() => {
-            console.error("Image failed to load:", `${createBookApi}${book.image}`);
+            console.error("Image failed to load:", book.image);
             setImageError(true);
           }}
         />
