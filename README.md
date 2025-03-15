@@ -110,9 +110,9 @@ MERN BOOK-STORE/
 
 ![Create Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rd4tsa7nardpmszts05o.png)
 
-![Update Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fl9mj07pn9xesjijs9er.png)
+![Edit Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9q4ha6b7nkenh9eyst17.png)
 
-![Delete Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/66llcmbvxcnbqkn290ls.png)
+![Delete Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/i4y9qh6iytqurjouibce.png)
 
 ![About Page](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/501pmmri4flfff0rrxr3.png)
 

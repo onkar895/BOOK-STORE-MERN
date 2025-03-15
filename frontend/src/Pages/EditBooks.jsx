@@ -7,6 +7,7 @@ import useFetchBooks from "../Hooks/useFetchBooks";
 import ComingSoon from "../assets/Coming-Soon.png";
 import { useSnackbar } from "notistack";
 import { IoCloseSharp } from "react-icons/io5";
+import NavBar from "../Components/NavBar";
 
 const EditBooks = () => {
   const [title, setTitle] = useState("");
@@ -27,7 +28,7 @@ const EditBooks = () => {
 
   const { id } = useParams();
 
-  const { books: book, error } = useFetchBooks(id); 
+  const { books: book, error } = useFetchBooks(id);
 
   useEffect(() => {
     if (book) {
@@ -135,48 +136,51 @@ const EditBooks = () => {
   if (error) return <p className='text-red-500 text-center'>{error}</p>;
 
   return (
-    <div className='min-h-screen flex flex-col items-center justify-center'>
-      <div className='flex items-center gap-10 justify-center mb-6'>
-        <BackButton />
-        <h1 className='text-2xl text-sky-400 tracking-widest'>Edit Book</h1>
-      </div>
-
-      <div className='flex flex-col gap-6 border border-sky-500 rounded-xl w-[500px] px-10 py-12 mx-auto'>
-        <div>
-          <input type='text' placeholder='Enter book title' value={title} required onChange={(e) => setTitle(e.target.value)} className={inputStyles} />
-        </div>
-        <div>
-          <input
-            type='file'
-            accept='image/*'
-            onChange={handleImageChange}
-            className='w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-sky-400 file:text-white hover:file:bg-sky-500'
-          />
-          {imagePreview && (
-            <div className='mt-3'>
-              <p className='text-sm text-gray-400 mb-1'>Image Preview:</p>
-              <img src={imagePreview} alt='Book cover preview' className='w-32 h-40 object-cover rounded border border-gray-400' />
-            </div>
-          )}
-        </div>
-        <div>
-          <input type='text' placeholder='Enter author name' value={author} required onChange={(e) => setAuthor(e.target.value)} className={inputStyles} />
-        </div>
-        <div>
-          <input type='text' placeholder='Enter book price' value={price} required onChange={(e) => setPrice(e.target.value)} className={inputStyles} />
-        </div>
-        <div>
-          <input type='number' placeholder='Enter publish year' value={publishYear} required onChange={(e) => setPublishYear(e.target.value)} className={inputStyles} />
-        </div>
-        <div>
-          <textarea type='text' placeholder='Enter book description' rows={3} value={description} required onChange={(e) => setDescription(e.target.value)} className={inputStyles} />
+    <div className='mx-auto'>
+      <NavBar />
+      <div className='min-h-screen flex flex-col items-center justify-center py-36 sm:py-28'>
+        <div className='flex items-center gap-10 justify-center mb-6'>
+          <BackButton />
+          <h1 className='text-2xl text-sky-400 tracking-widest'>Edit Book</h1>
         </div>
 
-        <button className='p-2 bg-sky-400 hover:bg-sky-500 mt-4 w-full rounded-md' onClick={handleEditBook} disabled={isSaving}>
-          {isSaving ? "Saving..." : "Save"}
-        </button>
+        <div className='flex flex-col gap-6 border border-sky-500 rounded-xl w-full max-w-xl md:max-w-2xl px-10 py-12 mx-auto'>
+          <div>
+            <input type='text' placeholder='Enter book title' value={title} required onChange={(e) => setTitle(e.target.value)} className={inputStyles} />
+          </div>
+          <div>
+            <input
+              type='file'
+              accept='image/*'
+              onChange={handleImageChange}
+              className='w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-sky-400 file:text-white hover:file:bg-sky-500'
+            />
+            {imagePreview && (
+              <div className='mt-3'>
+                <p className='text-sm text-gray-400 mb-1'>Image Preview:</p>
+                <img src={imagePreview} alt='Book cover preview' className='w-32 h-40 object-cover rounded border border-gray-400' />
+              </div>
+            )}
+          </div>
+          <div>
+            <input type='text' placeholder='Enter author name' value={author} required onChange={(e) => setAuthor(e.target.value)} className={inputStyles} />
+          </div>
+          <div>
+            <input type='text' placeholder='Enter book price' value={price} required onChange={(e) => setPrice(e.target.value)} className={inputStyles} />
+          </div>
+          <div>
+            <input type='number' placeholder='Enter publish year' value={publishYear} required onChange={(e) => setPublishYear(e.target.value)} className={inputStyles} />
+          </div>
+          <div>
+            <textarea type='text' placeholder='Enter book description' rows={3} value={description} required onChange={(e) => setDescription(e.target.value)} className={inputStyles} />
+          </div>
 
-        {saveError && <div className={errorStyles}>{saveError}</div>}
+          <button className='p-2 bg-sky-400 hover:bg-sky-500 mt-4 w-full rounded-md' onClick={handleEditBook} disabled={isSaving}>
+            {isSaving ? "Saving..." : "Save"}
+          </button>
+
+          {saveError && <div className={errorStyles}>{saveError}</div>}
+        </div>
       </div>
     </div>
   );
