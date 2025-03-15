@@ -141,7 +141,7 @@ const EditBooks = () => {
       <div className='min-h-screen flex flex-col items-center justify-center py-36 sm:py-28'>
         <div className='flex items-center gap-10 justify-center mb-6'>
           <BackButton />
-          <h1 className='text-2xl text-sky-400 tracking-widest'>Edit Book</h1>
+          <h1 className='text-2xl text-sky-400 tracking-widest font-semibold'>Edit Book</h1>
         </div>
 
         <div className='flex flex-col gap-6 border border-sky-500 rounded-xl w-full max-w-xl md:max-w-2xl px-10 py-12 mx-auto'>

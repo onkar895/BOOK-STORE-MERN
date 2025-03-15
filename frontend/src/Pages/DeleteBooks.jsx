@@ -57,7 +57,7 @@ const DeleteBooks = () => {
       <div className='min-h-screen flex flex-col items-center justify-center'>
       <div className='flex items-center gap-10 justify-center mb-10'>
         <BackButton />
-        <h1 className='text-2xl text-sky-400 tracking-widest'>Delete Book</h1>
+        <h1 className='text-2xl text-sky-400 tracking-widest font-semibold'>Delete Book</h1>
       </div>
       <div className='flex flex-col items-center justify-center gap-8 border-2 border-sky-500 rounded-xl w-full max-w-xl md:max-w-2xl px-10 h-[300px] mx-auto'>
         <h3 className='text-lg text-white'>Are You Sure! You want to delete this book?</h3>
