@@ -218,3 +218,11 @@ Created by [Omkar Karale](https://github.com/onkar895)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 - [Render Hosting](https://render.com/docs)
 - [Vercel Hosting](https://vercel.com/docs)
+
+---
+
+> ❣️ Love this project? Please don't hesitate to fork and star the repository! I'm always looking to improve and welcome any suggestions or feedback on [LinkedIn](https://www.linkedin.com/in/omkarkarale541/) if you notice anything that could be improved.
+
+> 🤔 Questions about implementation? Don't hesitate to reach out - I'm happy to help with any doubts or technical questions.
+
+# Happy Coding! 👨‍💻✨.
