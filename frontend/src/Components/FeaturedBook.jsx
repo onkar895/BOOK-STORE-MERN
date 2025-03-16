@@ -87,30 +87,20 @@ const FeaturedBook = ({ book }) => {
           {/* Book details */}
           <div className="md:w-2/3 p-6 md:p-8 flex flex-col justify-between">
             <div>
-              <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">{book.title}</h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-4">by {book.author}</p>
+              <h2 className="text-3xl font-bold text-white mb-2">{book.title}</h2>
+              <p className="text-xl text-gray-400 mb-4">by {book.author}</p>
               
               <div className="flex items-center mb-4">
                 <div className="flex mr-2">
                   {renderRatingStars(book.rating)}
                 </div>
-                <span className="text-gray-600 dark:text-gray-400">({book.rating || '4.5'})</span>
+                <span className="text-gray-400">({book.rating || '4.5'})</span>
               </div>
               
-              <div className="flex flex-wrap gap-3 mb-6">
-                {book.genre && (
-                  <span className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 px-3 py-1 rounded-full text-sm font-medium">
-                    {book.genre}
-                  </span>
-                )}
+              <div className="mb-6">
                 {book.publishYear && (
-                  <span className="bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100 px-3 py-1 rounded-full text-sm font-medium">
+                  <span className="bg-gray-700 text-gray-100 px-3 py-1 rounded-full text-sm font-medium">
                     {book.publishYear}
-                  </span>
-                )}
-                {book.pages && (
-                  <span className="bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100 px-3 py-1 rounded-full text-sm font-medium flex items-center">
-                    <span className="mr-1">{book.pages}</span> pages
                   </span>
                 )}
               </div>
@@ -123,12 +113,12 @@ const FeaturedBook = ({ book }) => {
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
               <NavLink 
                 to={`/books/details/${book._id}`}
-                className="bg-sky-600 hover:bg-sky-700 text-white font-medium py-2 px-6 rounded-full shadow-md transition-colors duration-300 flex justify-center items-center"
+                className="bg-sky-600 hover:bg-sky-700 text-white py-2 px-6 rounded-full shadow-md transition-colors duration-300 flex justify-center items-center"
               >
                 View Details
               </NavLink>
               <button 
-                className="bg-transparent border-2 border-sky-600 text-sky-600 dark:text-sky-400 dark:border-sky-400 hover:bg-sky-50 dark:hover:bg-sky-900/30 font-medium py-2 px-6 rounded-full transition-colors duration-300 flex justify-center items-center gap-2"
+                className="border-2 text-sky-400 border-sky-400 bg-sky-900/30 py-2 px-6 rounded-full transition-colors duration-300 flex justify-center items-center gap-2"
               >
                 <FaEye /> Quick Preview
               </button>

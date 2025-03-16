@@ -52,7 +52,7 @@ const HomePage = () => {
       {/* Main Content */}
       <div id="book-collection" className='w-full mx-auto py-10'>
         <div className='flex flex-col md:flex-row justify-between items-center mb-10 gap-4'>
-          <h2 className={`text-2xl md:text-3xl font-bold dark:text-white text-gray-800`}>
+          <h2 className={`text-2xl md:text-3xl font-bold text-white`}>
             Book Collection
           </h2>
           
@@ -60,14 +60,14 @@ const HomePage = () => {
           <div className='flex border border-sky-300 rounded-md overflow-hidden'>
             <button
               className={`px-6 py-2 transition-colors duration-300 ${
-                showType === 'card' ? 'bg-sky-500 text-white' : `dark:bg-gray-800 dark:text-gray-300 : bg-white text-gray-600}`
+                showType === 'card' ? 'bg-sky-500 text-white' : `bg-gray-800 text-gray-300`
               }`}
               onClick={() => setShowType('card')}>
               Card View
             </button>
             <button
               className={`px-6 py-2 transition-colors duration-300 ${
-                showType === 'table' ? 'bg-sky-500 text-white' : `dark:bg-gray-800 dark:text-gray-300 : bg-white text-gray-600}`
+                showType === 'table' ? 'bg-sky-500 text-white' : `bg-gray-800 text-gray-300`
               }`}
               onClick={() => setShowType('table')}>
               Table View
@@ -77,7 +77,7 @@ const HomePage = () => {
 
         {/* Search Results Count */}
         {searchQuery && (
-          <div className={`mb-6 dark:text-gray-300 text-gray-600`}>
+          <div className={`mb-6 text-gray-300`}>
             Found {filteredBooks.length} results for "{searchQuery}"
           </div>
         )}
