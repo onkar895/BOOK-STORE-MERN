@@ -37,7 +37,7 @@ const Footer = () => {
       {/* Main Footer */}
       <div className='border-t border-gray-700'>
         <div className='w-full mx-auto py-16 px-4'>
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-16 justify-between">
+          <div className="flex flex-col lg:flex-row items-start gap-16 justify-between">
             <div className='flex flex-col justify-center gap-4'>
               <Link to='/' className='flex items-center gap-2 group'>
                 <FaBook className='text-2xl text-sky-500 transition-colors duration-300' />
@@ -59,7 +59,7 @@ const Footer = () => {
                 </a>
               </div>
             </div>
-            <div className='flex items-center justify-between w-full'>
+            <div className='flex max-sm:flex-col gap-10 items-center max-sm:items-start justify-between w-full'>
               {/* Quick Links */}
               <div className='col-span-1'>
                 <h3 className='max-sm:text-sm font-semibold text-white uppercase tracking-widest mb-4'>Quick Links</h3>
