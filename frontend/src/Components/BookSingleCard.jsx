@@ -20,13 +20,13 @@ const BookSingleCard = memo(({ book, index }) => {
   const defaultBookCover = ComingSoon;
 
   return (
-    <div className='relative border border-gray-600 shadow-md rounded-md p-6  cursor-pointer'>
+    <div className='relative border border-gray-600 shadow-md rounded-md p-6 cursor-pointer'>
       <NavLink to={`/books/details/${book._id}`}>
         <img
           src={imageError ? defaultBookCover : book.image}
           alt={book.title}
           loading='lazy'
-          className='block m-auto w-[650px] h-[300px] sm:h-[200px] object-cover rounded-lg transition-transform hover:scale-105 duration-500 ease-in-out'
+          className='block m-auto w-[650px] h-[250px] sm:h-[200px] object-cover rounded-lg transition-transform hover:scale-105 duration-500 ease-in-out'
           onError={() => {
             console.error("Image failed to load:", book.image);
             setImageError(true);

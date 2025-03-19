@@ -105,7 +105,7 @@ const FeaturedBook = ({ book }) => {
                 )}
               </div>
               
-              <p className="text-gray-700 dark:text-gray-300 mb-6 line-clamp-3 md:line-clamp-none">
+              <p className="text-gray-300 mb-6 line-clamp-3 md:line-clamp-none">
                 {book.description || defaultDescription}
               </p>
             </div>
