@@ -7,9 +7,9 @@ const router = express.Router();
 // Route for getting all books
 router.get("/books", async (req, res) => {
   try {
-    // const page = parseInt(req.query.page) || 1;
-    // const limit = parseInt(req.query.limit) || 6;
-    // const skip = (page - 1) * limit;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 6;
+    const skip = (page - 1) * limit;
     
     const books = await Book.find({})
       .skip(skip)
