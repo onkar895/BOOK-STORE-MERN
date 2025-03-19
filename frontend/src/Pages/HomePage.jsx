@@ -102,7 +102,7 @@ const HomePage = () => {
             {showType === 'table' ? (
               <BooksTable books={searchQuery ? filteredBooks : books} />
             ) : (
-              <BooksCard books={searchQuery ? filteredBooks : books} />
+              <BooksCard books={searchQuery ? filteredBooks : books} loading={loading} />
             )}
           </div>
         )}

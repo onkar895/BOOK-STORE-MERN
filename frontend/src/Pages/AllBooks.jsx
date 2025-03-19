@@ -35,7 +35,7 @@ const AllBooks = () => {
         <div className='py-36 sm:py-28 px-4 sm:px-10 lg:px-28'>
           <div className='my-16'>{featuredBook && <FeaturedBook book={featuredBook} />}</div>
           <h1 className='my-6 text-white text-xl sm:text-2xl'>{books.length} books are available right now :-</h1>
-          <div className='grid grid-cols-1 lg:grid-cols-3 gap-10 md:gap-6 my-10'>
+          <div className='grid grid-cols-1 lg:grid-cols-3 gap-10 md:gap-16 my-10'>
             {books.length > 0 ? books.map((book, index) => <BookSingleCard key={book._id} book={book} index={index} />) : <p>No books available</p>}
           </div>
           <Footer />

@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { NavLink } from "react-router-dom";
 import { PiBookOpenTextLight } from "react-icons/pi";
 import { BiUserCircle, BiShow } from "react-icons/bi";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsInfoCircle, BsCurrencyDollar, BsCardText } from "react-icons/bs";
 import { MdOutlineDelete } from "react-icons/md";
-import ComingSoon from '../assets/Coming-Soon.png'
+import ComingSoon from "../assets/Coming-Soon.png";
 
-const BookSingleCard = ({ book, index }) => {
+const BookSingleCard = memo(({ book, index }) => {
   const [imageError, setImageError] = useState(false);
 
   // Truncate long descriptions
@@ -17,14 +17,16 @@ const BookSingleCard = ({ book, index }) => {
   };
 
   // Default image to show when the URL is invalid or image fails to load
-  const defaultBookCover = ComingSoon
+  const defaultBookCover = ComingSoon;
 
   return (
-    <div className='relative border border-gray-600 shadow-md rounded-md p-6  cursor-pointer my-6'>
+    <div className='relative border border-gray-600 shadow-md rounded-md p-6  cursor-pointer'>
       <NavLink to={`/books/details/${book._id}`}>
         <img
-          src={imageError ? defaultBookCover : book.image} alt={book.title}
-          className='block m-auto w-[650px] h-[300px] md:h-[200px] object-cover rounded-lg transition-transform hover:scale-105 duration-500 ease-in-out'
+          src={imageError ? defaultBookCover : book.image}
+          alt={book.title}
+          loading='lazy'
+          className='block m-auto w-[650px] h-[300px] sm:h-[200px] object-cover rounded-lg transition-transform hover:scale-105 duration-500 ease-in-out'
           onError={() => {
             console.error("Image failed to load:", book.image);
             setImageError(true);
@@ -46,15 +48,17 @@ const BookSingleCard = ({ book, index }) => {
 
           <div className='flex flex-col justify-center gap-3 my-4'>
             {/* Author Info */}
-            <div className='flex items-center gap-x-2'>
-              <BiUserCircle className={`text-2xl text-sky-400 transition-colors duration-300`} />
-              <h3 className='text-sm text-white/60'>{book.author}</h3>
-            </div>
+            <div className='flex items-center justify-between'>
+              <div className='flex items-center gap-x-2'>
+                <BiUserCircle className={`text-2xl text-sky-400 transition-colors duration-300`} />
+                <h3 className='text-sm text-white/60'>{book.author}</h3>
+              </div>
 
-            {/* Price Info with proper icon */}
-            <div className='flex items-center gap-x-2 mt-1'>
-              <BsCurrencyDollar className={`text-2xl text-sky-400 transition-colors duration-300`} />
-              <h3 className='text-sm text-white/60'>{book.price}</h3>
+              {/* Price Info with proper icon */}
+              <div className='flex items-center gap-x-2 mt-1'>
+                <BsCurrencyDollar className={`text-2xl text-sky-400 transition-colors duration-300`} />
+                <h3 className='text-sm text-white/60'>{book.price}</h3>
+              </div>
             </div>
             {/* Description with truncation */}
             <div className='flex items-center gap-x-3'>
@@ -83,6 +87,6 @@ const BookSingleCard = ({ book, index }) => {
       </div>
     </div>
   );
-};
+});
 
 export default BookSingleCard;
