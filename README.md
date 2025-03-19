@@ -8,7 +8,7 @@ A modern, responsive full-stack application for managing book inventory with com
 
 <br>
 
-### **BookVerse Demo** - [BookVerse Live](https:-//book-store-mern-web.vercel.app/)
+### **BookVerse Demo** - [BookVerse Live](https://book-store-mern-web.vercel.app/)
 
 <br>
 
@@ -65,9 +65,9 @@ A modern, responsive full-stack application for managing book inventory with com
 |--------|----------|-------------|
 | GET | /api/books | Fetch all books |
 | POST | /api/books | Create a new book |
-| GET | /api/books/:-id | Fetch a specific book by ID |
-| PATCH | /api/books/:-id | Update an existing book |
-| DELETE | /api/books/:-id | Delete a book |
+| GET | /api/books/:id | Fetch a specific book by ID |
+| PATCH | /api/books/:id | Update an existing book |
+| DELETE | /api/books/:id | Delete a book |
 
 ## 📝 Project Structure
 
@@ -100,25 +100,25 @@ MERN BOOK-STORE/
 
 ## 📸 Screenshots:- 
 
-![Hero Section](https:-//dev-to-uploads.s3.amazonaws.com/uploads/articles/edfxtq1jnejm86piawm3.png)
+![Hero Section](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/edfxtq1jnejm86piawm3.png)
 
-![Featured Book](https:-//dev-to-uploads.s3.amazonaws.com/uploads/articles/7t93q54t4xgjsg4f91pc.png)
+![Featured Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7t93q54t4xgjsg4f91pc.png)
 
-![Book Collection Card View](https:-//dev-to-uploads.s3.amazonaws.com/uploads/articles/l0iu72mcbxav492ne623.png)
+![Book Collection Card View](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/l0iu72mcbxav492ne623.png)
 
-![Book Collection Table View](https:-//dev-to-uploads.s3.amazonaws.com/uploads/articles/vlbcpa3maygnz7mpl2f6.png)
+![Book Collection Table View](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vlbcpa3maygnz7mpl2f6.png)
 
-![Show Details Book](https:-//dev-to-uploads.s3.amazonaws.com/uploads/articles/mh3vc5r2oshnhgmjop7m.png)
+![Show Details Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/mh3vc5r2oshnhgmjop7m.png)
 
-![Create Book](https:-//dev-to-uploads.s3.amazonaws.com/uploads/articles/rd4tsa7nardpmszts05o.png)
+![Create Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rd4tsa7nardpmszts05o.png)
 
-![Edit Book](https:-//dev-to-uploads.s3.amazonaws.com/uploads/articles/9q4ha6b7nkenh9eyst17.png)
+![Edit Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9q4ha6b7nkenh9eyst17.png)
 
-![Delete Book](https:-//dev-to-uploads.s3.amazonaws.com/uploads/articles/i4y9qh6iytqurjouibce.png)
+![Delete Book](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/i4y9qh6iytqurjouibce.png)
 
-![About Page](https:-//dev-to-uploads.s3.amazonaws.com/uploads/articles/501pmmri4flfff0rrxr3.png)
+![About Page](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/501pmmri4flfff0rrxr3.png)
 
-![Footer](https:-//dev-to-uploads.s3.amazonaws.com/uploads/articles/sf8ztkkwtgonbptgecyy.png)
+![Footer](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sf8ztkkwtgonbptgecyy.png)
 
 ---
 
@@ -134,7 +134,7 @@ MERN BOOK-STORE/
 
 1. Clone the repository
    ```bash
-   git clone https:-//github.com/onkar895/BOOK-STORE-MERN.git
+   git clone https://github.com/onkar895/BOOK-STORE-MERN.git
    cd MERN BOOK-STORE
    ```
 
@@ -172,7 +172,7 @@ MERN BOOK-STORE/
    npm run dev
    ```
 
-6. Access the application at [http:-//localhost:-5173](http:-//localhost:-5173)
+6. Access the application at [http://localhost:5173](http://localhost:5173)
 
 ## 🚀 Deployment
 
@@ -207,22 +207,22 @@ MERN BOOK-STORE/
 
 ## 👨‍💻 Author
 
-Created by [Omkar Karale](https:-//github.com/onkar895)
+Created by [Omkar Karale](https://github.com/onkar895)
 
 ## 🙏 Acknowledgements
 
-- [MongoDB Documentation](https:-//docs.mongodb.com/)
-- [Express.js Documentation](https:-//expressjs.com/)
-- [React Documentation](https:-//reactjs.org/)
-- [Node.js Documentation](https:-//nodejs.org/)
-- [Cloudinary Documentation](https:-//cloudinary.com/documentation)
-- [Tailwind CSS Documentation](https:-//tailwindcss.com/docs)
-- [Render Hosting](https:-//render.com/docs)
-- [Vercel Hosting](https:-//vercel.com/docs)
+- [MongoDB Documentation](https://docs.mongodb.com/)
+- [Express.js Documentation](https://expressjs.com/)
+- [React Documentation](https://reactjs.org/)
+- [Node.js Documentation](https://nodejs.org/)
+- [Cloudinary Documentation](https://cloudinary.com/documentation)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [Render Hosting](https://render.com/docs)
+- [Vercel Hosting](https://vercel.com/docs)
 
 ---
 
-> ❣️ Love this project? Please don't hesitate to fork and star the repository! I'm always looking to improve and welcome any suggestions or feedback on [LinkedIn](https:-//www.linkedin.com/in/omkarkarale541/) if you notice anything that could be improved.
+> ❣️ Love this project? Please don't hesitate to fork and star the repository! I'm always looking to improve and welcome any suggestions or feedback on [LinkedIn](https://www.linkedin.com/in/omkarkarale541/) if you notice anything that could be improved.
 
 > 🤔 Questions about implementation? Don't hesitate to reach out - I'm happy to help with any doubts or technical questions.
 
