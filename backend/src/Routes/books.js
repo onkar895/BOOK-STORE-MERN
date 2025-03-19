@@ -7,11 +7,25 @@ const router = express.Router();
 // Route for getting all books
 router.get("/books", async (req, res) => {
   try {
-    const books = await Book.find({});
-
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 6;
+    const skip = (page - 1) * limit;
+    
+    const books = await Book.find({})
+      .skip(skip)
+      .limit(limit)
+      .lean(); // Use lean() for better performance
+    
+    const totalBooks = await Book.countDocuments();
+    
     if (!books || books.length === 0) throw new Error("No books found");
-
-    res.status(200).json({ count: books.length, data: books });
+    
+    res.status(200).json({ 
+      count: totalBooks, 
+      data: books, 
+      totalPages: Math.ceil(totalBooks / limit),
+      currentPage: page
+    });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: error.message });
