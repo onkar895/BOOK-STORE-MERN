@@ -1,30 +1,58 @@
-import { useState } from 'react';
+import { useState, useEffect, useContext  } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { MdMenu, MdClose, MdSearch } from 'react-icons/md';
 import { FaBook, FaGithub } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom'; 
-import useFetchBooks from '../Hooks/useFetchBooks';
+import SearchContext from '../Context/SearchContext';
 
 const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const {books} = useFetchBooks()
+  const [localSearchQuery, setLocalSearchQuery] = useState('');
+
+  const { setSearchQuery } = useContext(SearchContext);
 
   const navigate = useNavigate();
 
-  const foundBook = books.find(book => book.title.toLowerCase().includes(searchQuery.toLowerCase()));
-
-  const handleSearch = (e) => {
+   // Handle search submit
+   const handleSearch = (e) => {
     e.preventDefault();
-    if (foundBook) {
-      navigate(`/books/details/${foundBook._id}`);
-    } else {
-      console.log("Book not found");
+    
+    // Update the parent component's search query
+    if (setSearchQuery) {
+      setSearchQuery(localSearchQuery);
+      
+      if (localSearchQuery.trim() !== '') {
+        const currentPath = window.location.pathname;
+        
+        // Navigate to the same page but with search query in URL
+        if (currentPath === '/' || currentPath === '/books') {
+          navigate(`${currentPath}?search=${encodeURIComponent(localSearchQuery)}`);
+        } else {
+          navigate(`/books?search=${encodeURIComponent(localSearchQuery)}`);
+        }
+      }
+      
+      // Scroll to book collection section
+      setTimeout(() => {
+        const bookCollectionElement = document.getElementById('book-collection');
+        if (bookCollectionElement) {
+          bookCollectionElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     }
-    console.log('Searching for:', searchQuery);
+    
     // Reset mobile menu after search on mobile
     setMobileMenuOpen(false);
   };
+
+   // Clear search when navigating away from home page
+   useEffect(() => {
+    return () => {
+      if (setSearchQuery) {
+        setSearchQuery('');
+      }
+    };
+  }, [setSearchQuery]);
 
   return (
     <nav className="fixed top-0 left-0 z-50 bg-slate-900 transition-colors duration-300 w-full">
@@ -93,8 +121,8 @@ const NavBar = () => {
               <input
                 type="text"
                 placeholder="Search books..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={localSearchQuery}
+                onChange={(e) => setLocalSearchQuery(e.target.value)}
                 className="px-4 text-sm py-1.5 w-72 rounded-full bg-transparent text-gray-200 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-colors duration-300"
               />
               <button type="submit" className="absolute right-3 top-2 text-gray-400 hover:text-gray-300">
@@ -188,8 +216,8 @@ const NavBar = () => {
               <input
                 type="text"
                 placeholder="Search books..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={localSearchQuery}
+                onChange={(e) => setLocalSearchQuery(e.target.value)}
                 className="w-full py-2 px-3 rounded-md border border-gray-500 text-gray-100 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-colors duration-300 bg-transparent"
               />
               <button type="submit" className="absolute right-3 top-3 text-gray-400">

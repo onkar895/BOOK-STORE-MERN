@@ -1,32 +1,66 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { apiUrl } from "../utils/bookAPI";
 
 const useFetchBooks = (id = null) => {
   const [books, setBooks] = useState(id ? null : []);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [initialLoad, setInitialLoad] = useState(true);
 
-  useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        setLoading(true);
-        const url = id ? `${apiUrl}/${id}` : `${apiUrl}`; // Fetch a single book if id is provided, otherwise fetch all books
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const result = await response.json();
+  const fetchBooks = useCallback(async (pageNum = 1) => {
+    try {
+      setLoading(true);
+      const url = id 
+        ? `${apiUrl}/${id}` 
+        : `${apiUrl}?page=${pageNum}&limit=6`; // Add pagination parameters
+      
+      const response = await fetch(url);
+      
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      
+      const result = await response.json();
+      
+      if (id) {
         setBooks(result.data);
-      } catch (err) {
-        console.error("Error fetching data:", err);
-        alert('An error occurred. Please check console')
-        setError("Failed to load data.");
-      } finally {
-        setLoading(false);
+      } else {
+        // For infinite scroll, append new books to existing ones
+        if (pageNum === 1) {
+          setBooks(result.data);
+        } else {
+          setBooks(prev => [...prev, ...result.data]);
+        }
+        
+        // Check if there are more books to load
+        setHasMore(result.currentPage < result.totalPages);
       }
-    };
-    fetchBooks();
-  }, [id]);  // Fetch data when id changes
+      
+      setInitialLoad(false);
+    } catch (err) {
+      console.error("Error fetching data:", err);
+      setError("Failed to load data.");
+    } finally {
+      setLoading(false);
+    }
+  }, [id]);
 
-  return { books, loading, error };
+  // Initial data fetch
+  useEffect(() => {
+    setPage(1); // Reset page when id changes
+    fetchBooks(1);
+  }, [id, fetchBooks]);
+
+  // Function to load more books (for infinite scroll)
+  const loadMore = useCallback(() => {
+    if (!loading && hasMore) {
+      const nextPage = page + 1;
+      setPage(nextPage);
+      fetchBooks(nextPage);
+    }
+  }, [loading, hasMore, page, fetchBooks]);
+
+  return { books, loading, error, loadMore, hasMore, initialLoad };
 };
 
 export default useFetchBooks;

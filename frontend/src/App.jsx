@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false); // Show content after 3 seconds
-    }, 2000);
+    }, 3000);
 
     return () => clearTimeout(timer); // Cleanup timer
   }, []); // Empty dependency array to run only once
