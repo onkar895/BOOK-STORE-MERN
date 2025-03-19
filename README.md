@@ -4,7 +4,7 @@ A modern, responsive full-stack application for managing book inventory with com
 
 <br>
 
-![bookverse-logo.png](<https:-//media-hosting.imagekit.io//c914e0b392db4434/bookverse-logo.png?Expires=1836666116&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=dEQCEQna7sEtoTQOa-Hdjw4c31hoTjZS3U~pOtesAs5UCwO5gBn2exHDTFSohd871C-RjoKzcTYrL-0f9oxtiPUUXp7FNUol-2TMRokg69vJEv2EAgk2VLNsRN1e4IHfs~cUV2hb41WfCO6W4FrWIswWKC8hVvn8GXstbmEiA73VWM9uhXCFLO6yQ5r~CVLfs99BAinNKoPE1dNNwK-wfLoCsJRRoUpa4b-5WP~aPythUug0H0el7OjiGaaTRVRX86L7FjYZiXtEKO8Sc2kKjailuDXUzois6qWwyp~9rj9HbPbmCB43ML6MeaBw1z0XqU3ebsxq4iHUunPgmCAZUA__>)
+![bookverse-logo.png](https://media-hosting.imagekit.io//c914e0b392db4434/bookverse-logo.png?Expires=1836666116&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=dEQCEQna7sEtoTQOa-Hdjw4c31hoTjZS3U~pOtesAs5UCwO5gBn2exHDTFSohd871C-RjoKzcTYrL-0f9oxtiPUUXp7FNUol-2TMRokg69vJEv2EAgk2VLNsRN1e4IHfs~cUV2hb41WfCO6W4FrWIswWKC8hVvn8GXstbmEiA73VWM9uhXCFLO6yQ5r~CVLfs99BAinNKoPE1dNNwK-wfLoCsJRRoUpa4b-5WP~aPythUug0H0el7OjiGaaTRVRX86L7FjYZiXtEKO8Sc2kKjailuDXUzois6qWwyp~9rj9HbPbmCB43ML6MeaBw1z0XqU3ebsxq4iHUunPgmCAZUA__)
 
 <br>
 
