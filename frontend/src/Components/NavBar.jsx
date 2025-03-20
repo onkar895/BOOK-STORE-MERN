@@ -1,49 +1,55 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect, useContext  } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { MdMenu, MdClose, MdSearch } from 'react-icons/md';
 import { FaBook, FaGithub } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom'; 
 import SearchContext from '../Context/SearchContext';
+import useFetchBooks from '../Hooks/useFetchBooks';
 
 const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [localSearchQuery, setLocalSearchQuery] = useState('');
+  const [filteredBooks, setFilteredBooks] = useState([]);
 
-  const { setSearchQuery } = useContext(SearchContext);
+  const { searchQuery, setSearchQuery } = useContext(SearchContext);
+  const { books } = useFetchBooks();
 
   const navigate = useNavigate();
 
-   // Handle search submit
-   const handleSearch = (e) => {
+  const handleSearchInput = (e) => {
+    const inputValue = e.target.value;
+    setSearchQuery(inputValue);
+  };
+  
+  const handleSearch = (e) => {
     e.preventDefault();
-    
-    // Update the parent component's search query
-    if (setSearchQuery) {
-      setSearchQuery(localSearchQuery);
-      
-      if (localSearchQuery.trim() !== '') {
-        const currentPath = window.location.pathname;
-        
-        // Navigate to the same page but with search query in URL
-        if (currentPath === '/' || currentPath === '/books') {
-          navigate(`${currentPath}?search=${encodeURIComponent(localSearchQuery)}`);
-        } else {
-          navigate(`/books?search=${encodeURIComponent(localSearchQuery)}`);
-        }
-      }
-      
-      // Scroll to book collection section
-      setTimeout(() => {
-        const bookCollectionElement = document.getElementById('book-collection');
-        if (bookCollectionElement) {
-          bookCollectionElement.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
+  
+    if (searchQuery.trim() !== "") {
+      const filtered = books.filter(
+        (book) =>
+          book.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          book.author?.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredBooks(filtered);
+  
+      // Navigate with search query
+      const currentPath = window.location.pathname;
+      navigate(`${currentPath === "/" ? "/" : currentPath}?search=${encodeURIComponent(searchQuery)}`);
+    } else {
+      setFilteredBooks(books); // Show all books when search is cleared
     }
-    
-    // Reset mobile menu after search on mobile
+  
+    // Scroll to books section after search
+    setTimeout(() => {
+      const bookCollectionElement = document.getElementById("book-collection");
+      if (bookCollectionElement) {
+        bookCollectionElement.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+  
     setMobileMenuOpen(false);
   };
+  
 
    // Clear search when navigating away from home page
    useEffect(() => {
@@ -121,8 +127,8 @@ const NavBar = () => {
               <input
                 type="text"
                 placeholder="Search books..."
-                value={localSearchQuery}
-                onChange={(e) => setLocalSearchQuery(e.target.value)}
+                value={searchQuery}
+                onChange={handleSearchInput}
                 className="px-4 text-sm py-1.5 w-72 rounded-full bg-transparent text-gray-200 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-colors duration-300"
               />
               <button type="submit" className="absolute right-3 top-2 text-gray-400 hover:text-gray-300">
@@ -216,8 +222,8 @@ const NavBar = () => {
               <input
                 type="text"
                 placeholder="Search books..."
-                value={localSearchQuery}
-                onChange={(e) => setLocalSearchQuery(e.target.value)}
+                value={searchQuery}
+                onChange={handleSearchInput}
                 className="w-full py-2 px-3 rounded-md border border-gray-500 text-gray-100 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-colors duration-300 bg-transparent"
               />
               <button type="submit" className="absolute right-3 top-3 text-gray-400">
