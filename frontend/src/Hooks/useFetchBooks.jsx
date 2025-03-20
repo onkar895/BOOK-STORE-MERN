@@ -14,7 +14,7 @@ const useFetchBooks = (id = null) => {
       setLoading(true);
       const url = id 
         ? `${apiUrl}/${id}` 
-        : `${apiUrl}?page=${pageNum}&limit=6`; // Add pagination parameters
+        : `${apiUrl}?page=${pageNum}&limit=9`; // Add pagination parameters
       
       const response = await fetch(url);
       

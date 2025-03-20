@@ -47,7 +47,11 @@ const AllBooks = () => {
               </h1>
             )}
           </div>
-          <BooksCard books={searchQuery ? filteredBooks : books} loading={loading} loadMore={searchQuery ? null : loadMore} hasMore={searchQuery ? false : hasMore} />
+          <BooksCard books={searchQuery ? filteredBooks : books} loadMore={searchQuery ? null : loadMore} hasMore={searchQuery ? false : hasMore} />
+
+          {
+            loading && <Spinner/>
+          }
           <Footer />
         </div>
       )}
