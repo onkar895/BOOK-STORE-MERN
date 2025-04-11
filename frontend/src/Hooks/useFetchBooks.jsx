@@ -35,7 +35,7 @@ const useFetchBooks = (id = null) => {
         // Check if there are more books to load
         setHasMore(result.currentPage < result.totalPages);
       }
-      
+
       setInitialLoad(false);
     } catch (err) {
       console.error("Error fetching data:", err);
